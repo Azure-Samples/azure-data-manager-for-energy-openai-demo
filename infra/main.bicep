@@ -18,7 +18,7 @@ param searchServiceResourceGroupName string = ''
 param searchServiceResourceGroupLocation string = location
 
 param searchServiceSkuName string = 'standard'
-param searchIndexName string = 'gptkbindex'
+param searchIndexName string = ''
 
 param storageAccountName string = ''
 param storageResourceGroupName string = ''
@@ -31,11 +31,11 @@ param openAiResourceGroupLocation string = location
 
 param openAiSkuName string = 'S0'
 
-param formRecognizerServiceName string = ''
-param formRecognizerResourceGroupName string = ''
-param formRecognizerResourceGroupLocation string = location
+// param formRecognizerServiceName string = ''
+// param formRecognizerResourceGroupName string = ''
+// param formRecognizerResourceGroupLocation string = location
 
-param formRecognizerSkuName string = 'S0'
+// param formRecognizerSkuName string = 'S0'
 
 param gptDeploymentName string = 'davinci'
 param gptModelName string = 'text-davinci-003'
