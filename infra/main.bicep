@@ -18,7 +18,7 @@ param searchServiceResourceGroupName string = ''
 param searchServiceResourceGroupLocation string = location
 
 param searchServiceSkuName string = 'standard'
-param searchIndexName string = 'gptkbindex'
+param searchIndexName string = ''
 
 param storageAccountName string = ''
 param storageResourceGroupName string = ''
@@ -31,15 +31,15 @@ param openAiResourceGroupLocation string = location
 
 param openAiSkuName string = 'S0'
 
-param formRecognizerServiceName string = ''
-param formRecognizerResourceGroupName string = ''
-param formRecognizerResourceGroupLocation string = location
+// param formRecognizerServiceName string = ''
+// param formRecognizerResourceGroupName string = ''
+// param formRecognizerResourceGroupLocation string = location
 
-param formRecognizerSkuName string = 'S0'
+// param formRecognizerSkuName string = 'S0'
 
 param gptDeploymentName string = 'davinci'
 param gptModelName string = 'text-davinci-003'
-param chatGptDeploymentName string = 'chat'
+param chatGptDeploymentName string = 'gpt-las'
 param chatGptModelName string = 'gpt-35-turbo'
 
 @description('Id of the user or app to assign application roles')
@@ -78,7 +78,7 @@ module appServicePlan 'core/host/appserviceplan.bicep' = {
   scope: resourceGroup
   params: {
     name: !empty(appServicePlanName) ? appServicePlanName : '${abbrs.webServerFarms}${resourceToken}'
-    location: location
+    location: 'eastus'
     tags: tags
     sku: {
       name: 'B1'
@@ -94,7 +94,7 @@ module backend 'core/host/appservice.bicep' = {
   scope: resourceGroup
   params: {
     name: !empty(backendServiceName) ? backendServiceName : '${abbrs.webSitesAppService}backend-${resourceToken}'
-    location: location
+    location: 'eastus'
     tags: union(tags, { 'azd-service-name': 'backend' })
     appServicePlanId: appServicePlan.outputs.id
     runtimeName: 'python'
