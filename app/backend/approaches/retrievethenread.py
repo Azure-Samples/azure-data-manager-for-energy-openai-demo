@@ -39,10 +39,9 @@ Sources:
 Answer:
 """
 
-    def __init__(self, search_client: SearchClient, openai_deployment: str, sourcepage_field: str, content_field: str):
+    def __init__(self, search_client: SearchClient, openai_deployment: str, content_field: str):
         self.search_client = search_client
         self.openai_deployment = openai_deployment
-        self.sourcepage_field = sourcepage_field
         self.content_field = content_field
 
     def run(self, q: str, overrides: dict) -> any:
@@ -63,15 +62,10 @@ Answer:
         else:
             r = self.search_client.search(q, filter=filter, top=top)
         if use_semantic_captions:
-            results = "https://test.no"
+            results = [nonewlines(" . ".join([c.text for c in doc['@search.captions']])) for doc in r]
         else:
-            results = "https://test.no"
+            results = [nonewlines(doc[self.content_field]) for doc in r]
         content = "\n".join(results)
-        # if use_semantic_captions:
-        #     results = [doc[self.sourcepage_field] + ": " + nonewlines(" . ".join([c.text for c in doc['@search.captions']])) for doc in r]
-        # else:
-        #     results = [doc[self.sourcepage_field] + ": " + nonewlines(doc[self.content_field]) for doc in r]
-        # content = "\n".join(results)
 
         prompt = (overrides.get("prompt_template") or self.template).format(q=q, retrieved=content)
         completion = openai.Completion.create(
