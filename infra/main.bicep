@@ -60,9 +60,9 @@ resource openAiResourceGroup 'Microsoft.Resources/resourceGroups@2021-04-01' exi
   name: !empty(openAiResourceGroupName) ? openAiResourceGroupName : resourceGroup.name
 }
 
-resource formRecognizerResourceGroup 'Microsoft.Resources/resourceGroups@2021-04-01' existing = if (!empty(formRecognizerResourceGroupName)) {
-  name: !empty(formRecognizerResourceGroupName) ? formRecognizerResourceGroupName : resourceGroup.name
-}
+// resource formRecognizerResourceGroup 'Microsoft.Resources/resourceGroups@2021-04-01' existing = if (!empty(formRecognizerResourceGroupName)) {
+//   name: !empty(formRecognizerResourceGroupName) ? formRecognizerResourceGroupName : resourceGroup.name
+// }
 
 resource searchServiceResourceGroup 'Microsoft.Resources/resourceGroups@2021-04-01' existing = if (!empty(searchServiceResourceGroupName)) {
   name: !empty(searchServiceResourceGroupName) ? searchServiceResourceGroupName : resourceGroup.name
@@ -150,19 +150,19 @@ module openAi 'core/ai/cognitiveservices.bicep' = {
   }
 }
 
-module formRecognizer 'core/ai/cognitiveservices.bicep' = {
-  name: 'formrecognizer'
-  scope: formRecognizerResourceGroup
-  params: {
-    name: !empty(formRecognizerServiceName) ? formRecognizerServiceName : '${abbrs.cognitiveServicesFormRecognizer}${resourceToken}'
-    kind: 'FormRecognizer'
-    location: formRecognizerResourceGroupLocation
-    tags: tags
-    sku: {
-      name: formRecognizerSkuName
-    }
-  }
-}
+// module formRecognizer 'core/ai/cognitiveservices.bicep' = {
+//   name: 'formrecognizer'
+//   scope: formRecognizerResourceGroup
+//   params: {
+//     name: !empty(formRecognizerServiceName) ? formRecognizerServiceName : '${abbrs.cognitiveServicesFormRecognizer}${resourceToken}'
+//     kind: 'FormRecognizer'
+//     location: formRecognizerResourceGroupLocation
+//     tags: tags
+//     sku: {
+//       name: formRecognizerSkuName
+//     }
+//   }
+// }
 
 module searchService 'core/search/search-services.bicep' = {
   name: 'search-service'
@@ -218,15 +218,15 @@ module openAiRoleUser 'core/security/role.bicep' = {
   }
 }
 
-module formRecognizerRoleUser 'core/security/role.bicep' = {
-  scope: formRecognizerResourceGroup
-  name: 'formrecognizer-role-user'
-  params: {
-    principalId: principalId
-    roleDefinitionId: 'a97b65f3-24c7-4388-baec-2e87135dc908'
-    principalType: 'User'
-  }
-}
+// module formRecognizerRoleUser 'core/security/role.bicep' = {
+//   scope: formRecognizerResourceGroup
+//   name: 'formrecognizer-role-user'
+//   params: {
+//     principalId: principalId
+//     roleDefinitionId: 'a97b65f3-24c7-4388-baec-2e87135dc908'
+//     principalType: 'User'
+//   }
+// }
 
 module storageRoleUser 'core/security/role.bicep' = {
   scope: storageResourceGroup
@@ -318,8 +318,8 @@ output AZURE_OPENAI_RESOURCE_GROUP string = openAiResourceGroup.name
 output AZURE_OPENAI_GPT_DEPLOYMENT string = gptDeploymentName
 output AZURE_OPENAI_CHATGPT_DEPLOYMENT string = chatGptDeploymentName
 
-output AZURE_FORMRECOGNIZER_SERVICE string = formRecognizer.outputs.name
-output AZURE_FORMRECOGNIZER_RESOURCE_GROUP string = formRecognizerResourceGroup.name
+// output AZURE_FORMRECOGNIZER_SERVICE string = formRecognizer.outputs.name
+// output AZURE_FORMRECOGNIZER_RESOURCE_GROUP string = formRecognizerResourceGroup.name
 
 output AZURE_SEARCH_INDEX string = searchIndexName
 output AZURE_SEARCH_SERVICE string = searchService.outputs.name
