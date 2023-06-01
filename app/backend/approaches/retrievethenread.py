@@ -65,7 +65,6 @@ Answer:
             # results = [doc[self.sourcepage_field] + ": " + nonewlines(doc[self.content_field]) for doc in r]
             results = [nonewlines(doc[self.content_field]) for doc in r]
         content = "\n".join(results)
-        # print(content)
 
         prompt = (overrides.get("prompt_template") or self.template).format(q=q, retrieved=content)
         print(prompt)
