@@ -86,6 +86,7 @@ class ReadDecomposeAsk(Approach):
         # Fix up references to they look like what the frontend expects ([] instead of ()), need a better citation format since parentheses are so common
         result = result.replace("(", "[").replace(")", "]")
 
+        #return {"data_points": self.results or [], "answer": "I am readcomposeask", "thoughts": cb_handler.get_and_reset_log()}
         return {"data_points": self.results or [], "answer": result, "thoughts": cb_handler.get_and_reset_log()}
     
 class ReAct(ReActDocstoreAgent):
