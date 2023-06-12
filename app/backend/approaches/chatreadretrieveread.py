@@ -122,7 +122,7 @@ Search query:
         completion_text = completion.choices[0].text
         print(completion_text)
         modified_string = replace_brackets(completion_text)
-        print(modified_string) 
+        print(modified_string)
 
         return {"data_points": results, "answer": modified_string, "thoughts": f"Searched for:<br>{q}<br><br>Prompt:<br>" + prompt.replace('\n', '<br>')}
     
