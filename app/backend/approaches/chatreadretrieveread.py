@@ -3,16 +3,28 @@ from azure.search.documents import SearchClient
 from azure.search.documents.models import QueryType
 from approaches.approach import Approach
 from text import nonewlines
+import re
+
+
+def replace_brackets(text):
+    pattern = r'\[(.*?)\](?=(.*\[[^\]]*\]){1,})'
+    modified_text = re.sub(pattern, r'\1', text)
+    return modified_text
+
 
 # Simple retrieve-then-read implementation, using the Cognitive Search and OpenAI APIs directly. It first retrieves
 # top documents from search, then constructs a prompt with them, and then uses OpenAI to generate an completion 
 # (answer) with that prompt.
 class ChatReadRetrieveReadApproach(Approach):
     prompt_prefix = """<|im_start|>system
-You are an intelligent assistant helping Contoso Inc employees with questions about their data stored in Azure Data Manager for Energy (ADME).
+"You are an intelligent assistant helping Contoso Inc employees with questions about their data stored in Azure Data Manager for Energy (ADME). " + \
+"Use 'you' to refer to the individual asking the questions even if they ask with 'I'. " + \
+"Answer the following question using only the data provided in the sources below. " + \
+"For tabular information return it as an html table. Do not return markdown format. "  + \
+"For arrays take the text from all values and treat as a string in the answer. "  + \
 Answer ONLY with the facts listed in the list of sources below. If there isn't enough information below, say you don't know. Do not generate answers that don't use the sources below. If asking a clarifying question to the user would help, ask the question.
 For tabular information return it as an html table. Do not return markdown format.
-Each source has a name followed by colon and the actual information, always include the source name for each fact you use in the response. Use square brakets to reference the source, e.g. [info1.txt]. Don't combine sources, list each source separately, e.g. [info1.txt][info2.pdf].
+Each source has a name followed by colon and the actual information, always include the source name for each fact you use in the response. Use square brakets to reference the source, e.g. [info1.txt]. Don't combine sources, list each source separately, e.g. [info1.txt][info2.pdf] Chatreadretretrieveread.
 {follow_up_questions_prompt}
 {injected_prompt}
 Sources:
@@ -21,12 +33,12 @@ Sources:
 {chat_history}
 """
 
-    follow_up_questions_prompt_content = """Generate three very brief follow-up questions that the user would likely ask next about their data stored in Azure Data Manager for Energy (ADME). 
-    Use double angle brackets to reference the questions, e.g. <<What is the ID of this record?>>.
+    follow_up_questions_prompt_content = """Generate three very brief follow-up questions that the user would likely ask next about the well or wellbore that has been asked about before. 
+    Use double angle brackets to reference the questions, e.g. <<Is the well abandoned?>>.
     Try not to repeat questions that have already been asked.
     Only generate questions and do not generate any text before or after the questions, such as 'Next Questions'"""
 
-    query_prompt_template = """Below is a history of the conversation so far, and a new question asked by the user that needs to be answered by searching in a knowledge base about their data stored in Azure Data Manager for Energy (ADME). 
+    query_prompt_template = """Below is a history of the conversation so far, and a new question asked by the user that needs to be answered by searching in a knowledge base about wellbores and wells.
     Generate a search query based on the conversation and the new question. 
     Do not include cited source filenames and document names e.g info.txt or doc.pdf in the search query terms.
     Do not include any text inside [] or <<>> in the search query terms.
@@ -47,6 +59,7 @@ Search query:
         self.gpt_deployment = gpt_deployment
         self.sourcepage_field = sourcepage_field
         self.content_field = content_field
+    
 
     def run(self, history: list[dict], overrides: dict) -> any:
         use_semantic_captions = True if overrides.get("semantic_captions") else False
@@ -104,7 +117,14 @@ Search query:
             stop=["<|im_end|>", "<|im_start|>"])
 
         #return {"data_points": results, "answer": "I am chatreadretriveread", "thoughts": f"Searched for:<br>{q}<br><br>Prompt:<br>" + prompt.replace('\n', '<br>')}
-        return {"data_points": results, "answer": completion.choices[0].text, "thoughts": f"Searched for:<br>{q}<br><br>Prompt:<br>" + prompt.replace('\n', '<br>')}
+        for x in results:
+            print('value results: '+ x)
+        completion_text = completion.choices[0].text
+        print(completion_text)
+        modified_string = replace_brackets(completion_text)
+        print(modified_string) 
+
+        return {"data_points": results, "answer": modified_string, "thoughts": f"Searched for:<br>{q}<br><br>Prompt:<br>" + prompt.replace('\n', '<br>')}
     
     def get_chat_history_as_text(self, history, include_last_turn=True, approx_max_tokens=1000) -> str:
         history_text = ""
