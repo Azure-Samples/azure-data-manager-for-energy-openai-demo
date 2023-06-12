@@ -63,4 +63,5 @@ export async function chatApi(options: ChatRequest): Promise<AskResponse> {
 
 export function getCitationFilePath(citation: string): string {
     return `/content/${citation}`;
+    //return "https://openaius.blob.core.windows.net/json/platform2280-jabeland_master-data--Wellbore_1014.json?sp=r&st=2023-06-09T12:40:55Z&se=2023-06-09T20:40:55Z&spr=https&sv=2022-11-02&sr=b&sig=efHVCa48JD63gwn1Bb4IbGTyn8YC8Ix6mzVPmoWIJC4%3D";
 }
