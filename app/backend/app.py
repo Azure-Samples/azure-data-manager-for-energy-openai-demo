@@ -13,13 +13,13 @@ from approaches.chatreadretrieveread import ChatReadRetrieveReadApproach
 from azure.storage.blob import BlobServiceClient
 
 # Replace these with your own values, either in environment variables or directly here
-AZURE_STORAGE_ACCOUNT = "openaius"
-AZURE_STORAGE_CONTAINER = "json"
-AZURE_SEARCH_SERVICE = "cs-adme-std"
-AZURE_SEARCH_INDEX = "json-index-modular-1"
-AZURE_OPENAI_SERVICE = "joasozeAI"
-AZURE_OPENAI_GPT_DEPLOYMENT = "davinci"
-AZURE_OPENAI_CHATGPT_DEPLOYMENT = "gpt-las"
+AZURE_STORAGE_ACCOUNT = os.environ.get("AZURE_STORAGE_ACCOUNT") or "mystorageaccount"
+AZURE_STORAGE_CONTAINER = os.environ.get("AZURE_STORAGE_CONTAINER") or "content"
+AZURE_SEARCH_SERVICE = os.environ.get("AZURE_SEARCH_SERVICE") or "gptkb"
+AZURE_SEARCH_INDEX = os.environ.get("AZURE_SEARCH_INDEX") or "gptkbindex"
+AZURE_OPENAI_SERVICE = os.environ.get("AZURE_OPENAI_SERVICE") or "myopenai"
+AZURE_OPENAI_GPT_DEPLOYMENT = os.environ.get("AZURE_OPENAI_GPT_DEPLOYMENT") or "davinci"
+AZURE_OPENAI_CHATGPT_DEPLOYMENT = os.environ.get("AZURE_OPENAI_CHATGPT_DEPLOYMENT") or "chat"
 
 KB_FIELDS_CONTENT = os.environ.get("KB_FIELDS_CONTENT") or "content"
 KB_FIELDS_CATEGORY = os.environ.get("KB_FIELDS_CATEGORY") or "category"
@@ -75,11 +75,13 @@ def static_file(path):
 # can access all the files. This is also slow and memory hungry.
 @app.route("/content/<path>")
 def content_file(path):
-    blob = blob_container.get_blob_client(path).download_blob()
+    # Remove text from first - from the end of the string in path variable
+    newPath = path.rsplit("-", 1)[0]
+    blob = blob_container.get_blob_client(newPath).download_blob()
     mime_type = blob.properties["content_settings"]["content_type"]
     if mime_type == "application/octet-stream":
-        mime_type = mimetypes.guess_type(path)[0] or "application/octet-stream"
-    return blob.readall(), 200, {"Content-Type": mime_type, "Content-Disposition": f"inline; filename={path}"}
+        mime_type = mimetypes.guess_type(newPath)[0] or "application/octet-stream"
+    return blob.readall(), 200, {"Content-Type": mime_type, "Content-Disposition": f"inline; filename={newPath}"}
     
 @app.route("/ask", methods=["POST"])
 def ask():
