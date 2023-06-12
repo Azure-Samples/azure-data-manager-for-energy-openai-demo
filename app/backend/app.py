@@ -75,11 +75,13 @@ def static_file(path):
 # can access all the files. This is also slow and memory hungry.
 @app.route("/content/<path>")
 def content_file(path):
-    blob = blob_container.get_blob_client(path).download_blob()
+    # Remove text from first - from the end of the string in path variable
+    newPath = path.rsplit("-", 1)[0]
+    blob = blob_container.get_blob_client(newPath).download_blob()
     mime_type = blob.properties["content_settings"]["content_type"]
     if mime_type == "application/octet-stream":
-        mime_type = mimetypes.guess_type(path)[0] or "application/octet-stream"
-    return blob.readall(), 200, {"Content-Type": mime_type, "Content-Disposition": f"inline; filename={path}"}
+        mime_type = mimetypes.guess_type(newPath)[0] or "application/octet-stream"
+    return blob.readall(), 200, {"Content-Type": mime_type, "Content-Disposition": f"inline; filename={newPath}"}
     
 @app.route("/ask", methods=["POST"])
 def ask():
