@@ -6,12 +6,6 @@ from text import nonewlines
 import re
 
 
-def replace_brackets(text):
-    pattern = r'\[(.*?)\](?=(.*\[[^\]]*\]){1,})'
-    modified_text = re.sub(pattern, r'\1', text)
-    return modified_text
-
-
 # Simple retrieve-then-read implementation, using the Cognitive Search and OpenAI APIs directly. It first retrieves
 # top documents from search, then constructs a prompt with them, and then uses OpenAI to generate an completion 
 # (answer) with that prompt.
@@ -95,6 +89,8 @@ Search query:
         else:
             results = [doc[self.sourcepage_field] + ": " + nonewlines(doc[self.content_field]) for doc in r]
         content = "\n".join(results)
+        #Removing [] because they cause the UI to think text inside [] are citations
+        content = content.replace('[', '').replace(']', '')
 
         follow_up_questions_prompt = self.follow_up_questions_prompt_content if overrides.get("suggest_followup_questions") else ""
         
@@ -116,15 +112,7 @@ Search query:
             n=1, 
             stop=["<|im_end|>", "<|im_start|>"])
 
-        #return {"data_points": results, "answer": "I am chatreadretriveread", "thoughts": f"Searched for:<br>{q}<br><br>Prompt:<br>" + prompt.replace('\n', '<br>')}
-        for x in results:
-            print('value results: '+ x)
-        completion_text = completion.choices[0].text
-        print(completion_text)
-        modified_string = replace_brackets(completion_text)
-        print(modified_string)
-
-        return {"data_points": results, "answer": modified_string, "thoughts": f"Searched for:<br>{q}<br><br>Prompt:<br>" + prompt.replace('\n', '<br>')}
+        return {"data_points": results, "answer": completion.choices[0].text, "thoughts": f"Searched for:<br>{q}<br><br>Prompt:<br>" + prompt.replace('\n', '<br>')}
     
     def get_chat_history_as_text(self, history, include_last_turn=True, approx_max_tokens=1000) -> str:
         history_text = ""
