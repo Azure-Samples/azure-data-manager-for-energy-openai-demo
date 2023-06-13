@@ -1,0 +1,178 @@
+{
+  "data": {
+    "FacilityStates": [
+      {
+        "FacilityStateTypeID": "contoso-data:reference-data--FacilityStateType:Abandoned:"
+      }
+    ],
+    "GeographicBottomHoleLocation.SpatialParameterTypeID": null,
+    "GeographicBottomHoleLocation.CoordinateQualityCheckPerformedBy": null,
+    "ResourceLifecycleStatus": null,
+    "TargetFormation": null,
+    "DefaultVerticalMeasurementID": "Measured_From",
+    "SpatialLocation.Wgs84Coordinates": {
+      "geometries": [
+        {
+          "coordinates": [
+            6.86167304,
+            52.66074189
+          ],
+          "type": "point"
+        }
+      ],
+      "type": "geometrycollection"
+    },
+    "ResourceCurationStatus": null,
+    "TechnicalAssuranceID": null,
+    "FacilityName": "3388",
+    "Source": null,
+    "DefinitiveTrajectoryID": null,
+    "FacilityID": null,
+    "GeographicBottomHoleLocation.QualitativeSpatialAccuracyTypeID": null,
+    "DrillingReasons": [
+      {
+        "DrillingReasonTypeID": "contoso-data:reference-data--DrillingReasonType:DEV-HC:"
+      }
+    ],
+    "VerticalMeasurements": [
+      {
+        "WellboreTVDTrajectoryID": null,
+        "VerticalCRSID": null,
+        "VerticalReferenceID": "Measured_From",
+        "VerticalMeasurementSourceID": null,
+        "VerticalMeasurementID": "TD-Original",
+        "VerticalMeasurementPathID": "contoso-data:reference-data--VerticalMeasurementPath:MD:",
+        "VerticalMeasurement": 765.0,
+        "VerticalMeasurementTypeID": "contoso-data:reference-data--VerticalMeasurementType:TD:",
+        "VerticalMeasurementDescription": null,
+        "VerticalMeasurementUnitOfMeasureID": null,
+        "VerticalReferenceEntityID": null
+      },
+      {
+        "WellboreTVDTrajectoryID": null,
+        "VerticalCRSID": null,
+        "VerticalReferenceID": "Measured_From",
+        "VerticalMeasurementSourceID": null,
+        "VerticalMeasurementID": "TVD",
+        "VerticalMeasurementPathID": "contoso-data:reference-data--VerticalMeasurementPath:TVD:",
+        "VerticalMeasurement": 765.0,
+        "VerticalMeasurementTypeID": "contoso-data:reference-data--VerticalMeasurementType:TD:",
+        "VerticalMeasurementDescription": null,
+        "VerticalMeasurementUnitOfMeasureID": null,
+        "VerticalReferenceEntityID": null
+      },
+      {
+        "WellboreTVDTrajectoryID": null,
+        "VerticalCRSID": "contoso-data:reference-data--CoordinateReferenceSystem:5709:",
+        "VerticalReferenceID": null,
+        "VerticalMeasurementSourceID": null,
+        "VerticalMeasurementID": "Measured_From",
+        "VerticalMeasurementPathID": "contoso-data:reference-data--VerticalMeasurementPath:Elevation:",
+        "VerticalMeasurement": 14.37,
+        "VerticalMeasurementTypeID": "contoso-data:reference-data--VerticalMeasurementType:RotaryTable:",
+        "VerticalMeasurementDescription": null,
+        "VerticalMeasurementUnitOfMeasureID": null,
+        "VerticalReferenceEntityID": null
+      }
+    ],
+    "VersionCreationReason": null,
+    "ResourceSecurityClassification": null,
+    "SequenceNumber": 1,
+    "DataSourceOrganisationID": null,
+    "KickOffWellbore": null,
+    "SpatialLocation.SpatialParameterTypeID": null,
+    "ExistenceKind": null,
+    "SpatialLocation.CoordinateQualityCheckPerformedBy": null,
+    "FacilityTypeID": "contoso-data:reference-data--FacilityType:Wellbore:",
+    "NameAliases": [
+      {
+        "AliasName": "3388",
+        "AliasNameTypeID": "contoso-data:reference-data--AliasNameType:UWI:",
+        "DefinitionOrganisationID": null
+      },
+      {
+        "AliasName": "SCH-266",
+        "AliasNameTypeID": "contoso-data:reference-data--AliasNameType:BoreholeCode:",
+        "DefinitionOrganisationID": null
+      },
+      {
+        "AliasName": "SCHOONEBEEK-266",
+        "AliasNameTypeID": "contoso-data:reference-data--AliasNameType:Borehole:",
+        "DefinitionOrganisationID": null
+      }
+    ],
+    "ProjectedBottomHoleLocation.CoordinateQualityCheckPerformedBy": null,
+    "FacilityEvents": [
+      {
+        "EffectiveDateTime": "1954-01-19T01:00:00+01:00",
+        "FacilityEventTypeID": "contoso-data:reference-data--FacilityEventType:Spud:"
+      },
+      {
+        "EffectiveDateTime": "1954-01-29T01:00:00+01:00",
+        "FacilityEventTypeID": "contoso-data:reference-data--FacilityEventType:TDReached:"
+      }
+    ],
+    "ProjectedBottomHoleLocation.QuantitativeAccuracyBandID": null,
+    "TechnicalAssuranceTypeID": null,
+    "GeoContexts": [
+      {
+        "BasinID": null,
+        "FieldID": null,
+        "PlayID": null,
+        "GeoPoliticalEntityID": "contoso-data:master-data--GeoPoliticalEntity:Drenthe_Province:",
+        "GeoTypeID": "contoso-data:reference-data--GeoPoliticalEntityType:Province:",
+        "ProspectID": null
+      },
+      {
+        "BasinID": null,
+        "FieldID": null,
+        "PlayID": null,
+        "GeoPoliticalEntityID": "contoso-data:master-data--GeoPoliticalEntity:Emmen_Municipality:",
+        "GeoTypeID": "contoso-data:reference-data--GeoPoliticalEntityType:Municipality:",
+        "ProspectID": null
+      }
+    ],
+    "ProjectedBottomHoleLocation.SpatialParameterTypeID": null,
+    "CurrentOperatorID": "contoso-data:master-data--Organisation:Nederlandse%20Aardolie%20Maatschappij%20B.V.:",
+    "SpatialLocation.QualitativeSpatialAccuracyTypeID": null,
+    "ProjectedBottomHoleLocation.SpatialGeometryTypeID": null,
+    "SpatialLocation.SpatialGeometryTypeID": null,
+    "OperatingEnvironmentID": "contoso-data:reference-data--OperatingEnvironment:On:",
+    "ProjectedBottomHoleLocation.QualitativeSpatialAccuracyTypeID": null,
+    "ResourceHomeRegionID": null,
+    "GeographicBottomHoleLocation.QuantitativeAccuracyBandID": null,
+    "PrimaryMaterialID": "contoso-data:reference-data--MaterialType:Oil:",
+    "InitialOperatorID": "contoso-data:master-data--Organisation:NAM:",
+    "GeographicBottomHoleLocation.SpatialGeometryTypeID": null,
+    "WellID": "contoso-data:master-data--Well:3388:",
+    "SpatialLocation.QuantitativeAccuracyBandID": null,
+    "TrajectoryTypeID": "contoso-data:reference-data--WellboreTrajectoryType:Vertical:"
+  },
+  "kind": "osdu:wks:master-data--Wellbore:1.0.0",
+  "source": "wks",
+  "acl": {
+    "viewers": [
+      "data.default.viewers@contoso-data.dataservices.energy"
+    ],
+    "owners": [
+      "data.default.owners@contoso-data.dataservices.energy"
+    ]
+  },
+  "type": "master-data--Wellbore",
+  "version": 1678351656970239,
+  "tags": null,
+  "createTime": "2023-03-09T08:47:36.977Z",
+  "authority": "osdu",
+  "namespace": "osdu:wks",
+  "legal": {
+    "legaltags": [
+      "contoso-data-open-test-data"
+    ],
+    "otherRelevantDataCountries": [
+      "US"
+    ],
+    "status": "compliant"
+  },
+  "createUser": "a9b01ec8-23d6-41c6-8773-89cf40351b9a",
+  "id": "contoso-data:master-data--Wellbore:3388"
+}

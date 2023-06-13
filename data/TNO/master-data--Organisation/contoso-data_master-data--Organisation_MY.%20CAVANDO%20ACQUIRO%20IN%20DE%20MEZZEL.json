@@ -1,0 +1,53 @@
+{
+  "data": {
+    "OrganisationPurposeDescription": null,
+    "TechnicalAssuranceTypeID": null,
+    "ResourceLifecycleStatus": null,
+    "OrganisationID": null,
+    "InternalOrganisationIndicator": null,
+    "ResourceCurationStatus": null,
+    "TechnicalAssuranceID": null,
+    "Source": "TNO",
+    "SpatialLocation.QualitativeSpatialAccuracyTypeID": null,
+    "SpatialLocation.SpatialGeometryTypeID": null,
+    "ResourceHomeRegionID": null,
+    "OrganisationTypeID": null,
+    "VersionCreationReason": null,
+    "ResourceSecurityClassification": null,
+    "OrganisationName": "MY.%20CAVANDO%20ACQUIRO%20IN%20DE%20MEZZEL",
+    "SpatialLocation.SpatialParameterTypeID": null,
+    "ExistenceKind": null,
+    "SpatialLocation.CoordinateQualityCheckPerformedBy": null,
+    "OrganisationDescription": null,
+    "SpatialLocation.QuantitativeAccuracyBandID": null
+  },
+  "kind": "osdu:wks:master-data--Organisation:1.0.0",
+  "source": "wks",
+  "acl": {
+    "viewers": [
+      "data.default.viewers@contoso-data.dataservices.energy"
+    ],
+    "owners": [
+      "data.default.owners@contoso-data.dataservices.energy"
+    ]
+  },
+  "type": "master-data--Organisation",
+  "version": 1678350875795267,
+  "tags": null,
+  "modifyUser": "a9b01ec8-23d6-41c6-8773-89cf40351b9a",
+  "modifyTime": "2023-03-09T08:34:35.802Z",
+  "createTime": "2023-03-07T11:18:47.562Z",
+  "authority": "osdu",
+  "namespace": "osdu:wks",
+  "legal": {
+    "legaltags": [
+      "contoso-data-open-test-data"
+    ],
+    "otherRelevantDataCountries": [
+      "US"
+    ],
+    "status": "compliant"
+  },
+  "createUser": "a9b01ec8-23d6-41c6-8773-89cf40351b9a",
+  "id": "contoso-data:master-data--Organisation:MY.%20CAVANDO%20ACQUIRO%20IN%20DE%20MEZZEL"
+}
