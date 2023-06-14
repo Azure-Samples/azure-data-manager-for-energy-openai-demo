@@ -12,7 +12,7 @@ param sku object = {
 param managedResourceGroupName string = ''
 
 
-resource ws 'Microsoft.Databricks/workspaces@2018-04-01' = {
+resource databricks 'Microsoft.Databricks/workspaces@2018-04-01' = {
   name: name
   location: location
   sku: sku
@@ -32,4 +32,5 @@ resource managedResourceGroup 'Microsoft.Resources/resourceGroups@2021-04-01' ex
   name: managedResourceGroupName
 }
 
-output workspace object = ws.properties
+output name string = databricks.name
+output workspaceurl string = databricks.properties.workspaceUrl

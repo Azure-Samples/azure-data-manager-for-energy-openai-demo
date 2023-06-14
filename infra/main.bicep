@@ -66,10 +66,8 @@ resource openAiResourceGroup 'Microsoft.Resources/resourceGroups@2021-04-01' exi
   name: !empty(openAiResourceGroupName) ? openAiResourceGroupName : resourceGroup.name
 }
 
-resource databricksManagedResourceGroup 'Microsoft.Resources/resourceGroups@2021-04-01' = {
-  name: !empty(databricksManagedResourceGroupName) ? databricksManagedResourceGroupName : '${abbrs.resourcesResourceGroups}${environmentName}-managed'
-  location: location
-  tags: tags
+resource databricksManagedResourceGroup 'Microsoft.Resources/resourceGroups@2021-04-01' existing = if (!empty(databricksManagedResourceGroupName)) {
+  name: !empty(databricksManagedResourceGroupName) ? databricksManagedResourceGroupName : '${abbrs.resourcesResourceGroups}${environmentName}-databricks'
 }
 
 // resource formRecognizerResourceGroup 'Microsoft.Resources/resourceGroups@2021-04-01' existing = if (!empty(formRecognizerResourceGroupName)) {
@@ -207,7 +205,7 @@ module databricks 'core/databricks/databricks.bicep' = {
     name: !empty(databricksWorkspaceName) ? databricksWorkspaceName : '${abbrs.databricksWorkspaces}${resourceToken}'
     location: databricksResourceGroupLocation
     tags: tags
-    managedResourceGroupName: databricksManagedResourceGroupName
+    managedResourceGroupName: databricksManagedResourceGroup.name
     sku: {
       name: databricksWorkspaceSkuName
     }
@@ -223,7 +221,7 @@ module storage 'core/storage/storage-account.bicep' = {
     tags: tags
     publicNetworkAccess: 'Enabled'
     sku: {
-      name: 'Standard_ZRS'
+      name: 'Standard_LRS'
     }
     deleteRetentionPolicy: {
       enabled: true
@@ -360,7 +358,8 @@ output AZURE_STORAGE_ACCOUNT string = storage.outputs.name
 output AZURE_STORAGE_CONTAINER string = storageContainerName
 output AZURE_STORAGE_RESOURCE_GROUP string = storageResourceGroup.name
 
-output AZURE_DATABRICKS_WORKSPACE string = databricks.name
+output AZURE_DATABRICKS_WORKSPACE string = databricks.outputs.name
 output AZURE_DATABRICKS_RESOURCE_GROUP string = databricksResourceGroup.name
+output AZURE_DATABRICKS_WORKSPACE_URL string = databricks.outputs.workspaceurl
 
 output BACKEND_URI string = backend.outputs.uri
