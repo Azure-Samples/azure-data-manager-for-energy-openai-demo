@@ -43,6 +43,15 @@
     },
     "storageResourceGroupName": {
       "value": "${AZURE_STORAGE_RESOURCE_GROUP}"
+    },
+    "databricksWorkspaceName": {
+      "value": "${AZURE_DATABRICKS_WORKSPACE}"
+    },
+    "databricksWorkspaceSkuName": {
+      "value": "trial"
+    },
+    "databricksResourceGroupName": {
+      "value": "${AZURE_DATABRICKS_RESOURCE_GROUP}"
     }
   }
 }

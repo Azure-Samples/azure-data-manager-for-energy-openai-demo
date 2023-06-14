@@ -25,6 +25,12 @@ param storageResourceGroupName string = ''
 param storageResourceGroupLocation string = location
 param storageContainerName string = 'content'
 
+param databricksWorkspaceName string = ''
+param databricksWorkspaceSkuName string = 'trial'
+param databricksResourceGroupName string = ''
+param databricksManagedResourceGroupName string = ''
+param databricksResourceGroupLocation string = location
+
 param openAiServiceName string = ''
 param openAiResourceGroupName string = ''
 param openAiResourceGroupLocation string = location
@@ -60,12 +66,22 @@ resource openAiResourceGroup 'Microsoft.Resources/resourceGroups@2021-04-01' exi
   name: !empty(openAiResourceGroupName) ? openAiResourceGroupName : resourceGroup.name
 }
 
+resource databricksManagedResourceGroup 'Microsoft.Resources/resourceGroups@2021-04-01' = {
+  name: !empty(databricksManagedResourceGroupName) ? databricksManagedResourceGroupName : '${abbrs.resourcesResourceGroups}${environmentName}-managed'
+  location: location
+  tags: tags
+}
+
 // resource formRecognizerResourceGroup 'Microsoft.Resources/resourceGroups@2021-04-01' existing = if (!empty(formRecognizerResourceGroupName)) {
 //   name: !empty(formRecognizerResourceGroupName) ? formRecognizerResourceGroupName : resourceGroup.name
 // }
 
 resource searchServiceResourceGroup 'Microsoft.Resources/resourceGroups@2021-04-01' existing = if (!empty(searchServiceResourceGroupName)) {
   name: !empty(searchServiceResourceGroupName) ? searchServiceResourceGroupName : resourceGroup.name
+}
+
+resource databricksResourceGroup 'Microsoft.Resources/resourceGroups@2021-04-01' existing = if (!empty(databricksResourceGroupName)) {
+  name: !empty(databricksResourceGroupName) ? databricksResourceGroupName : resourceGroup.name
 }
 
 resource storageResourceGroup 'Microsoft.Resources/resourceGroups@2021-04-01' existing = if (!empty(storageResourceGroupName)) {
@@ -78,7 +94,7 @@ module appServicePlan 'core/host/appserviceplan.bicep' = {
   scope: resourceGroup
   params: {
     name: !empty(appServicePlanName) ? appServicePlanName : '${abbrs.webServerFarms}${resourceToken}'
-    location: 'eastus'
+    location: location
     tags: tags
     sku: {
       name: 'B1'
@@ -94,7 +110,7 @@ module backend 'core/host/appservice.bicep' = {
   scope: resourceGroup
   params: {
     name: !empty(backendServiceName) ? backendServiceName : '${abbrs.webSitesAppService}backend-${resourceToken}'
-    location: 'eastus'
+    location: location
     tags: union(tags, { 'azd-service-name': 'backend' })
     appServicePlanId: appServicePlan.outputs.id
     runtimeName: 'python'
@@ -180,6 +196,21 @@ module searchService 'core/search/search-services.bicep' = {
       name: searchServiceSkuName
     }
     semanticSearch: 'free'
+  }
+}
+
+// add a databricks module
+module databricks 'core/databricks/databricks.bicep' = {
+  name: 'databricks'
+  scope: databricksResourceGroup
+  params: {
+    name: !empty(databricksWorkspaceName) ? databricksWorkspaceName : '${abbrs.databricksWorkspaces}${resourceToken}'
+    location: databricksResourceGroupLocation
+    tags: tags
+    managedResourceGroupName: databricksManagedResourceGroupName
+    sku: {
+      name: databricksWorkspaceSkuName
+    }
   }
 }
 
@@ -328,5 +359,8 @@ output AZURE_SEARCH_SERVICE_RESOURCE_GROUP string = searchServiceResourceGroup.n
 output AZURE_STORAGE_ACCOUNT string = storage.outputs.name
 output AZURE_STORAGE_CONTAINER string = storageContainerName
 output AZURE_STORAGE_RESOURCE_GROUP string = storageResourceGroup.name
+
+output AZURE_DATABRICKS_WORKSPACE string = databricks.name
+output AZURE_DATABRICKS_RESOURCE_GROUP string = databricksResourceGroup.name
 
 output BACKEND_URI string = backend.outputs.uri
