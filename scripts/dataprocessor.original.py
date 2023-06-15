@@ -19,8 +19,8 @@ SENTENCE_SEARCH_LIMIT = 100
 SECTION_OVERLAP = 100
 
 parser = argparse.ArgumentParser(
-    description="Prepare documents by extracting content from documents (PDF, Word, JSON), splitting content into sections, uploading to blob storage, and indexing in a search index.",
-    epilog="Example: prepdocs.py '..\data\*' --storageaccount myaccount --container mycontainer --searchservice mysearch --index myindex -v"
+    description="Prepare documents by extracting content from documents (PDF), splitting content into sections, uploading to blob storage, and indexing in a search index.",
+    epilog="Example: dataprocessor.py '..\data\*' --storageaccount myaccount --container mycontainer --searchservice mysearch --index myindex -v"
     )
 parser.add_argument("files", help="Files to be processed")
 parser.add_argument("--category", help="Value for the category field in the search index for all sections indexed in this run")

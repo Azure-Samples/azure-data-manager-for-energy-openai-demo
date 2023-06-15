@@ -38,9 +38,9 @@ Write-Host 'Running "dataprocessor.py"'
 $cwd = (Get-Location)
 if ($env:SKIPBLOBS -eq 'TRUE') {
   Write-Host 'SKIPBLOBS=TRUE | Skipping blob uploads and processing.'
-  Start-Process -FilePath $venvPythonPath -ArgumentList "./scripts/dataprocessor.py $cwd/data/TNO/* --storageaccount $env:AZURE_STORAGE_ACCOUNT --container $env:AZURE_STORAGE_CONTAINER --searchservice $env:AZURE_SEARCH_SERVICE --index $env:AZURE_SEARCH_INDEX --tenantid $env:AZURE_TENANT_ID --databricksworkspaceurl $env:AZURE_DATABRICKS_WORKSPACE_URL --skipblobs -v" -Wait -NoNewWindow
+  Start-Process -FilePath $venvPythonPath -ArgumentList "./scripts/dataprocessor.py $cwd/data/TNO/* --storageaccount $env:AZURE_STORAGE_ACCOUNT --container $env:AZURE_STORAGE_CONTAINER --searchservice $env:AZURE_SEARCH_SERVICE --index $env:AZURE_SEARCH_INDEX --tenantid $env:AZURE_TENANT_ID --databricksworkspaceurl $env:AZURE_DATABRICKS_WORKSPACE_URL --databricksworkspaceid $env:AZURE_DATABRICKS_WORKSPACE_ID --skipblobs -v" -Wait -NoNewWindow
 }
 else {
-  Start-Process -FilePath $venvPythonPath -ArgumentList "./scripts/dataprocessor.py $cwd/data/TNO/* --storageaccount $env:AZURE_STORAGE_ACCOUNT --container $env:AZURE_STORAGE_CONTAINER --searchservice $env:AZURE_SEARCH_SERVICE --index $env:AZURE_SEARCH_INDEX --tenantid $env:AZURE_TENANT_ID --databricksworkspaceurl $env:AZURE_DATABRICKS_WORKSPACE_URL -v" -Wait -NoNewWindow
+  Start-Process -FilePath $venvPythonPath -ArgumentList "./scripts/dataprocessor.py $cwd/data/TNO/* --storageaccount $env:AZURE_STORAGE_ACCOUNT --container $env:AZURE_STORAGE_CONTAINER --searchservice $env:AZURE_SEARCH_SERVICE --index $env:AZURE_SEARCH_INDEX --tenantid $env:AZURE_TENANT_ID --databricksworkspaceurl $env:AZURE_DATABRICKS_WORKSPACE_URL --databricksworkspaceid $env:AZURE_DATABRICKS_WORKSPACE_ID -v" -Wait -NoNewWindow
 }
 azd env set SKIPBLOBS "TRUE"

@@ -361,5 +361,6 @@ output AZURE_STORAGE_RESOURCE_GROUP string = storageResourceGroup.name
 output AZURE_DATABRICKS_WORKSPACE string = databricks.outputs.name
 output AZURE_DATABRICKS_RESOURCE_GROUP string = databricksResourceGroup.name
 output AZURE_DATABRICKS_WORKSPACE_URL string = databricks.outputs.workspaceurl
+output AZURE_DATABRICKS_WORKSPACE_ID string = databricks.outputs.workspaceid
 
 output BACKEND_URI string = backend.outputs.uri

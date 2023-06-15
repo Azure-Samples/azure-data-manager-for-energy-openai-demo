@@ -34,3 +34,4 @@ resource managedResourceGroup 'Microsoft.Resources/resourceGroups@2021-04-01' ex
 
 output name string = databricks.name
 output workspaceurl string = databricks.properties.workspaceUrl
+output workspaceid string = databricks.properties.workspaceId

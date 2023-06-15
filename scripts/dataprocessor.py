@@ -13,6 +13,7 @@ from azure.search.documents.indexes import SearchIndexClient
 from azure.search.documents.indexes.models import *
 from azure.search.documents import SearchClient
 from azure.ai.formrecognizer import DocumentAnalysisClient
+from databricks.connect import DatabricksSession
 
 MAX_SECTION_LENGTH = 1000
 SENTENCE_SEARCH_LIMIT = 100
@@ -38,6 +39,7 @@ parser.add_argument("--localpdfparser", action="store_true", help="Use PyPdf loc
 parser.add_argument("--formrecognizerservice", required=False, help="Optional. Name of the Azure Form Recognizer service which will be used to extract text, tables and layout from the documents (must exist already)")
 parser.add_argument("--formrecognizerkey", required=False, help="Optional. Use this Azure Form Recognizer account key instead of the current user identity to login (use az login to set current user for Azure)")
 parser.add_argument("--databricksworkspaceurl", help="Azure Databricks Workspace URL, used to chunk the files and send to search index")
+parser.add_argument("--databricksworkspaceid", help="Azure Databricks Workspace ID, used to chunk the files and send to search index")
 parser.add_argument("--verbose", "-v", action="store_true", help="Verbose output")
 args = parser.parse_args()
 
@@ -45,8 +47,17 @@ args = parser.parse_args()
 azd_credential = AzureDeveloperCliCredential() if args.tenantid == None else AzureDeveloperCliCredential(tenant_id=args.tenantid, process_timeout=60)
 default_creds = azd_credential if args.searchkey == None or args.storagekey == None else None
 search_creds = default_creds if args.searchkey == None else AzureKeyCredential(args.searchkey)
+
+
 if not args.skipblobs:
     storage_creds = default_creds if args.storagekey == None else args.storagekey
+    databricks_creds = default_creds if args.databrickskey == None else args.databrickskey
+
+databricks = DatabricksSession.builder.remote(
+  host       = f"https://{args.databricksworkspaceurl}",
+  token      = retrieve_token(),
+  cluster_id = retrieve_cluster_id()
+).getOrCreate()
 
 def blob_name_from_file_page(filename, page = 0):
     if os.path.splitext(filename)[1].lower() == ".pdf":
