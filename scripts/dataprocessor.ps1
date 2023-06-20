@@ -43,4 +43,4 @@ if ($env:SKIPBLOBS -eq 'TRUE') {
 else {
   Start-Process -FilePath $venvPythonPath -ArgumentList "./scripts/dataprocessor.py $cwd/data/TNO/* --storageaccount $env:AZURE_STORAGE_ACCOUNT --container $env:AZURE_STORAGE_CONTAINER --searchservice $env:AZURE_SEARCH_SERVICE --index $env:AZURE_SEARCH_INDEX --tenantid $env:AZURE_TENANT_ID --databricksworkspaceurl $env:AZURE_DATABRICKS_WORKSPACE_URL --databricksworkspaceid $env:AZURE_DATABRICKS_WORKSPACE_ID -v" -Wait -NoNewWindow
 }
-azd env set SKIPBLOBS "TRUE"
+# azd env set SKIPBLOBS "TRUE"

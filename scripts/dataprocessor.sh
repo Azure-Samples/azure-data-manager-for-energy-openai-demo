@@ -20,8 +20,8 @@ echo 'Installing dependencies from "requirements.txt" into virtual environment'
 echo 'Running "dataprocessor.py"'
 if [ $SKIPBLOBS == 'TRUE' ]
 then
-    ./scripts/.venv/bin/python ./scripts/dataprocessor.py '$cwd/data/TNO/*' --storageaccount $AZURE_STORAGE_ACCOUNT --container $AZURE_STORAGE_CONTAINER --searchservice $AZURE_SEARCH_SERVICE --index $AZURE_SEARCH_INDEX --tenantid $AZURE_TENANT_ID --databricksworkspaceurl $AZURE_DATABRICKS_WORKSPACE_URL --databricksworkspaceid $AZURE_DATABRICKS_WORKSPACE_ID --skipblobs -v
+    ./scripts/.venv/bin/python ./scripts/dataprocessor.py '$cwd/data/TNO/*' --storageaccount $AZURE_STORAGE_ACCOUNT --container $AZURE_STORAGE_CONTAINER --searchservice $AZURE_SEARCH_SERVICE --index $AZURE_SEARCH_INDEX --tenantid $AZURE_TENANT_ID --databricksworkspaceurl $AZURE_DATABRICKS_WORKSPACE --databricksworkspaceid $AZURE_DATABRICKS_WORKSPACE_ID --skipblobs -v
 else
-    ./scripts/.venv/bin/python ./scripts/dataprocessor.py '$cwd/data/TNO/*' --storageaccount $AZURE_STORAGE_ACCOUNT --container $AZURE_STORAGE_CONTAINER --searchservice $AZURE_SEARCH_SERVICE --index $AZURE_SEARCH_INDEX --tenantid $AZURE_TENANT_ID --databricksworkspaceurl $AZURE_DATABRICKS_WORKSPACE_URL --databricksworkspaceid $AZURE_DATABRICKS_WORKSPACE_ID -v
+    ./scripts/.venv/bin/python ./scripts/dataprocessor.py '$cwd/data/TNO/*' --storageaccount $AZURE_STORAGE_ACCOUNT --container $AZURE_STORAGE_CONTAINER --searchservice $AZURE_SEARCH_SERVICE --index $AZURE_SEARCH_INDEX --tenantid $AZURE_TENANT_ID --databricksworkspaceurl $AZURE_DATABRICKS_WORKSPACE --databricksworkspaceid $AZURE_DATABRICKS_WORKSPACE_ID -v
 fi
 azd env set SKIPBLOBS "TRUE"
