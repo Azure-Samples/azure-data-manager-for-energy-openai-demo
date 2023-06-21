@@ -74,23 +74,31 @@ def populate_index_with_databricks():
         host=args.databricksworkspaceurl,
         token=databricks_creds.token
     )
-    for cluster in w.clusters.list():
-        if(not cluster.cluster_name == args.databricksworkspaceid): 
-            print('Creating databricks cluster')
-            c = w.clusters.create(
-                cluster_name=args.databricksworkspaceid,
-                spark_version='12.2.x-scala2.12',
-                node_type_id='Standard_D4ads_v5',
-                autotermination_minutes=30,
-                num_workers=2
-            )
-            print(f"The databricks cluster is now ready at "
-            f"{w.config.host}#setting/clusters/{c.cluster_id}/configuration\n")
-            clusterid = c.cluster_id
-        else:
-            print(f"The databricks cluster is already created at "
-            f"{w.config.host}#setting/clusters/{cluster.cluster_id}/configuration\n")
-            clusterid = cluster.cluster_id
+    clusterid = None  # Initialize clusterid variable
+
+    
+    clusters = w.clusters.list()
+
+    if not clusters:
+        print('Creating databricks cluster')
+
+        c = w.clusters.create(
+            cluster_name=args.databricksworkspaceid,
+            spark_version='12.2.x-scala2.12',
+            node_type_id='Standard_D4ads_v5',
+            autotermination_minutes=30,
+            num_workers=10
+        )
+
+        print(f"The databricks cluster is now ready at "
+              f"{w.config.host}#setting/clusters/{c.cluster_id}/configuration\n")
+
+        clusterid = c.cluster_id
+    else:
+        cluster = clusters[0]  # Assuming you only want to use the first cluster in the list
+        print(f"Reusing existing Databricks cluster at "
+              f"{w.config.host}#setting/clusters/{cluster.cluster_id}/configuration\n")
+        clusterid = cluster.cluster_id
 
     print('Uploading jupyter notebook')
     notebook_path = '/create_cs_index'
@@ -221,7 +229,6 @@ if __name__ == '__main__':
 
     # List all blobs (documents) in the container
     blob_list = container_client.list_blobs()
-    print(blob_list)
     counter = 0
 
     with Pool() as pool:
@@ -259,7 +266,7 @@ if __name__ == '__main__':
 
     print(f"View the job at {w.config.host}/#job/{j.job_id}\n")
 
-    r=w.jobs.submit(
+    r=w.jobs.run_now(
         job_id=j.job_id
     )
 
@@ -325,11 +332,12 @@ def create_search_index():
         index = SearchIndex(
             name=args.index,
             fields=[
-                SimpleField(name="id", type="Edm.String", key=True),
+                SimpleField(name="id", type="Edm.String", filterable=True, facetable=True),
                 SearchableField(name="content", type="Edm.String", analyzer_name="en.microsoft"),
                 SimpleField(name="category", type="Edm.String", filterable=True, facetable=True),
                 SimpleField(name="sourcepage", type="Edm.String", filterable=True, facetable=True),
-                SimpleField(name="sourcefile", type="Edm.String", filterable=True, facetable=True)
+                SimpleField(name="sourcefile", type="Edm.String", filterable=True, facetable=True),
+                SimpleField(name="keyfield", type="Edm.String", key=True)
             ],
             semantic_settings=SemanticSettings(
                 configurations=[SemanticConfiguration(
@@ -346,8 +354,8 @@ if args.removeall:
     remove_blobs(None)
 #    remove_from_index(None)
 else:
-    # if not args.remove:
-    #     create_search_index()
+    if not args.remove:
+        create_search_index()
 
     print(f"Processing files...")
     for filename in glob.glob(args.files):
@@ -358,9 +366,9 @@ else:
         elif args.removeall:
             remove_blobs(None)
 #            remove_from_index(None)
-        # else:
-        #     if (not args.skipblobs == True):
-        #         upload_blobs(filename)
+        else:
+            if (not args.skipblobs == True):
+                upload_blobs(filename)
             # page_map = get_document_text(filename)
             # sections = create_sections(os.path.basename(filename), page_map)
             # index_sections(os.path.basename(filename), sections)
