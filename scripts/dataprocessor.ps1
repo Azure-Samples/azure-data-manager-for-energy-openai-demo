@@ -31,6 +31,41 @@ if (Test-Path -Path "/usr") {
   $venvPythonPath = "./scripts/.venv/bin/python"
 }
 
+$databricksIdentity = az identity show --name dbmanagedidentity --resource-group $env:AZURE_DATABRICKS_MANAGED_RESOURCE_GROUP | ConvertFrom-Json
+$databricksIdentityId = $databricksIdentity.principalId
+$searchroles = @(
+  "5e0bd9bd-7b93-4f28-af87-19fc36ad61bd",
+  "1407120a-92aa-4202-b7e9-c0e197c71c8f",
+  "8ebe5a00-799e-43f5-93ac-243d3dce84a7"
+)
+
+$storageroles = @(
+  "2a2b9908-6ea1-4ae2-8e65-a410df84e7d1",
+  "ba92f5b4-2d11-453d-a403-e96b0029c9fe"
+)
+
+Write-Host 'Running Databricks role assignments'
+
+foreach ($role in $searchroles) {
+  $roleassignment = az role assignment create `
+      --role $role `
+      --assignee-object-id $databricksIdentityId `
+      --scope /subscriptions/$env:AZURE_SUBSCRIPTION_ID/resourceGroups/$env:AZURE_SEARCH_SERVICE_RESOURCE_GROUP `
+      --assignee-principal-type ServicePrincipal | ConvertFrom-Json
+  $roleassignmentname = $roleassignment.roleDefinitionName
+  Write-Host "Added Databricks Identity ($databricksIdentityId) added to role $roleassignmentname on $env:AZURE_SEARCH_SERVICE_RESOURCE_GROUP"
+}
+
+foreach ($role in $storageroles) {
+  $roleassignment = az role assignment create `
+      --role $role `
+      --assignee-object-id $databricksIdentityId `
+      --scope /subscriptions/$env:AZURE_SUBSCRIPTION_ID/resourceGroups/$env:AZURE_STORAGE_RESOURCE_GROUP `
+      --assignee-principal-type ServicePrincipal | ConvertFrom-Json
+      $roleassignmentname = $roleassignment.roleDefinitionName
+  Write-Host "Added Databricks Identity ($databricksIdentityId) added to role $roleassignmentname on $env:AZURE_STORAGE_RESOURCE_GROUP"
+}
+
 Write-Host 'Installing dependencies from "requirements.txt" into virtual environment'
 Start-Process -FilePath $venvPythonPath -ArgumentList "-m pip install -r ./scripts/requirements.txt" -Wait -NoNewWindow
 

@@ -32,6 +32,12 @@ resource managedResourceGroup 'Microsoft.Resources/resourceGroups@2021-04-01' ex
   name: managedResourceGroupName
 }
 
+// REMOVED AS THIS IS NOT CURRENTLY WORKING, SEE https://github.com/Azure/bicep/issues/11035
+// resource existingIdentity 'Microsoft.ManagedIdentity/userAssignedIdentities@2023-01-31' existing = {
+//   name: 'dbmanagedidentity'
+// }
+
 output name string = databricks.name
 output workspaceurl string = databricks.properties.workspaceUrl
 output workspaceid string = databricks.properties.workspaceId
+output managedresourcegroup string = managedResourceGroup.name

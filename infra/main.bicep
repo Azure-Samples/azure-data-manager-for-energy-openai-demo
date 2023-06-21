@@ -86,11 +86,6 @@ resource storageResourceGroup 'Microsoft.Resources/resourceGroups@2021-04-01' ex
   name: !empty(storageResourceGroupName) ? storageResourceGroupName : resourceGroup.name
 }
 
-resource databricksManagedIdentity 'Microsoft.ManagedIdentity/userAssignedIdentities@2023-01-31' existing = {
-  scope: databricksManagedResourceGroup
-  name: 'dbmanagedidentity'
-}
-
 // Create an App Service Plan to group applications under the same payment plan and SKU
 module appServicePlan 'core/host/appserviceplan.bicep' = {
   name: 'appserviceplan'
@@ -222,7 +217,7 @@ module storage 'core/storage/storage-account.bicep' = {
   scope: storageResourceGroup
   params: {
     name: !empty(storageAccountName) ? storageAccountName : '${abbrs.storageStorageAccounts}${resourceToken}'
-    location: 'eastus'
+    location: storageResourceGroupLocation
     tags: tags
     publicNetworkAccess: 'Enabled'
     sku: {
@@ -343,25 +338,29 @@ module searchRoleBackend 'core/security/role.bicep' = {
   }
 }
 
-module storageRoleBackendDatabricks 'core/security/role.bicep' = {
-  scope: storageResourceGroup
-  name: 'storage-role-backend-databricks'
-  params: {
-    principalId: databricksManagedIdentity.properties.principalId
-    roleDefinitionId: 'ba92f5b4-2d11-453d-a403-e96b0029c9fe'
-    principalType: 'ServicePrincipal'
-  }
-}
+// REMOVED AS THIS IS NOT CURRENTLY WORKING, SEE https://github.com/Azure/bicep/issues/11035
+// DATABRICKS ROLE ASSIGNMENT IS DONE IN THE POST-DEPLOY SCRIPT
+// module storageRoleBackendDatabricks 'core/security/role.bicep' = {
+//   scope: storageResourceGroup
+//   name: 'storage-role-backend-databricks'
+//   params: {
+//     principalId: databricks.outputs.identity
+//     roleDefinitionId: 'ba92f5b4-2d11-453d-a403-e96b0029c9fe'
+//     principalType: 'ServicePrincipal'
+//   }
+// }
 
-module searchRoleBackendDatabricks 'core/security/role.bicep' = {
-  scope: searchServiceResourceGroup
-  name: 'search-role-backend-databricks'
-  params: {
-    principalId: databricksManagedIdentity.properties.principalId
-    roleDefinitionId: '8ebe5a00-799e-43f5-93ac-243d3dce84a7'
-    principalType: 'ServicePrincipal'
-  }
-}
+// REMOVED AS THIS IS NOT CURRENTLY WORKING, SEE https://github.com/Azure/bicep/issues/11035
+// DATABRICKS ROLE ASSIGNMENT IS DONE IN THE POST-DEPLOY SCRIPT
+// module searchRoleBackendDatabricks 'core/security/role.bicep' = {
+//   scope: searchServiceResourceGroup
+//   name: 'search-role-backend-databricks'
+//   params: {
+//     principalId: databricks.outputs.identity
+//     roleDefinitionId: '8ebe5a00-799e-43f5-93ac-243d3dce84a7'
+//     principalType: 'ServicePrincipal'
+//   }
+// }
 
 output AZURE_LOCATION string = location
 output AZURE_TENANT_ID string = tenant().tenantId
@@ -387,6 +386,7 @@ output AZURE_DATABRICKS_WORKSPACE string = databricks.outputs.name
 output AZURE_DATABRICKS_RESOURCE_GROUP string = databricksResourceGroup.name
 output AZURE_DATABRICKS_WORKSPACE_URL string = databricks.outputs.workspaceurl
 output AZURE_DATABRICKS_WORKSPACE_ID string = databricks.outputs.workspaceid
-output AZURE_DATABRICKS_MANAGED_IDENTITY string = databricksManagedIdentity.id
+output AZURE_DATABRICKS_MANAGED_RESOURCE_GROUP string = databricks.outputs.managedresourcegroup
+// output AZURE_DATABRICKS_MANAGED_IDENTITY string = databricks.outputs.identity
 
 output BACKEND_URI string = backend.outputs.uri

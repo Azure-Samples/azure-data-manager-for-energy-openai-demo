@@ -5,3 +5,4 @@ azure-ai-formrecognizer==3.2.1
 azure-storage-blob==12.14.1
 databricks-connect==13.1.*
 pyspark==3.4.0
+azure-mgmt-msi>=0.2.0

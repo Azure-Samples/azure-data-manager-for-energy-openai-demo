@@ -19,6 +19,7 @@ from databricks.connect import DatabricksSession
 from databricks.sdk import WorkspaceClient
 from databricks.sdk.service import workspace
 from databricks.sdk.service.jobs import JobTaskSettings, NotebookTask, NotebookTaskSource
+from azure.mgmt.msi import ManagedServiceIdentityClient
 
 
 # MAX_SECTION_LENGTH = 1000
@@ -30,42 +31,25 @@ parser = argparse.ArgumentParser(
     epilog="Example: dataprocessor.py '..\data\*' --storageaccount myaccount --container mycontainer --searchservice mysearch --index myindex -v"
 )
 parser.add_argument("files", help="Files to be processed")
-parser.add_argument(
-    "--category", help="Value for the category field in the search index for all sections indexed in this run")
-parser.add_argument("--skipblobs", action="store_true",
-                    help="Skip uploading individual pages to Azure Blob Storage")
-parser.add_argument("--skipindex", action="store_true",
-                    help="Skip populating the index using Databricks")
+parser.add_argument("--category", help="Value for the category field in the search index for all sections indexed in this run")
+parser.add_argument("--skipblobs", required=False, help="Optional. Skip uploading data to Azure Blob Storage")
+parser.add_argument("--skipindex", required=False, help="Optional. Skip populating the index using Databricks")
 parser.add_argument("--storageaccount", help="Azure Blob Storage account name")
 parser.add_argument("--container", help="Azure Blob Storage container name")
-parser.add_argument("--storagekey", required=False,
-                    help="Optional. Use this Azure Blob Storage account key instead of the current user identity to login (use az login to set current user for Azure)")
-parser.add_argument("--tenantid", required=False,
-                    help="Optional. Use this to define the Azure directory where to authenticate)")
-parser.add_argument(
-    "--searchservice", help="Name of the Azure Cognitive Search service where content should be indexed (must exist already)")
-parser.add_argument(
-    "--index", help="Name of the Azure Cognitive Search index where content should be indexed (will be created if it doesn't exist)")
-parser.add_argument("--searchkey", required=False,
-                    help="Optional. Use this Azure Cognitive Search account key instead of the current user identity to login (use az login to set current user for Azure)")
-parser.add_argument("--remove", action="store_true",
-                    help="Remove references to this document from blob storage and the search index")
-parser.add_argument("--removeall", action="store_true",
-                    help="Remove all blobs from blob storage and documents from the search index")
-parser.add_argument("--localpdfparser", action="store_true",
-                    help="Use PyPdf local PDF parser (supports only digital PDFs) instead of Azure Form Recognizer service to extract text, tables and layout from the documents")
-parser.add_argument("--formrecognizerservice", required=False,
-                    help="Optional. Name of the Azure Form Recognizer service which will be used to extract text, tables and layout from the documents (must exist already)")
-parser.add_argument("--formrecognizerkey", required=False,
-                    help="Optional. Use this Azure Form Recognizer account key instead of the current user identity to login (use az login to set current user for Azure)")
-parser.add_argument("--databricksworkspaceurl",
-                    help="Azure Databricks Workspace URL, used to chunk the files and send to search index")
-parser.add_argument("--databricksworkspaceid",
-                    help="Azure Databricks Workspace ID, used to chunk the files and send to search index")
-parser.add_argument("--databrickskey", required=False,
-                    help="Azure Databricks Access Key")
-parser.add_argument("--verbose", "-v", action="store_true",
-                    help="Verbose output")
+parser.add_argument("--storagekey", required=False, help="Optional. Use this Azure Blob Storage account key instead of the current user identity to login (use az login to set current user for Azure)")
+parser.add_argument("--tenantid", required=False, help="Optional. Use this to define the Azure directory where to authenticate)")
+parser.add_argument("--searchservice", help="Name of the Azure Cognitive Search service where content should be indexed (must exist already)")
+parser.add_argument("--index", help="Name of the Azure Cognitive Search index where content should be indexed (will be created if it doesn't exist)")
+parser.add_argument("--searchkey", required=False, help="Optional. Use this Azure Cognitive Search account key instead of the current user identity to login (use az login to set current user for Azure)")
+parser.add_argument("--remove", action="store_true", help="Remove references to this document from blob storage and the search index")
+parser.add_argument("--removeall", action="store_true", help="Remove all blobs from blob storage and documents from the search index")
+parser.add_argument("--localpdfparser", action="store_true", help="Use PyPdf local PDF parser (supports only digital PDFs) instead of Azure Form Recognizer service to extract text, tables and layout from the documents")
+parser.add_argument("--formrecognizerservice", required=False, help="Optional. Name of the Azure Form Recognizer service which will be used to extract text, tables and layout from the documents (must exist already)")
+parser.add_argument("--formrecognizerkey", required=False, help="Optional. Use this Azure Form Recognizer account key instead of the current user identity to login (use az login to set current user for Azure)")
+parser.add_argument("--databricksworkspaceurl", help="Azure Databricks Workspace URL, used to chunk the files and send to search index")
+parser.add_argument("--databricksworkspaceid", help="Azure Databricks Workspace ID, used to chunk the files and send to search index")
+parser.add_argument("--databrickskey", required=False, help="Azure Databricks Access Key")
+parser.add_argument("--verbose", "-v", action="store_true", help="Verbose output")
 args = parser.parse_args()
 
 # Use the current user identity to connect to Azure services unless a key is explicitly set for any of them
@@ -78,22 +62,14 @@ default_az_creds = az_credential if args.databrickskey == None else None
 search_creds = default_creds if args.searchkey == None else AzureKeyCredential(
     args.searchkey)
 
-
 if not args.skipindex:
     databricks_creds = default_az_creds.get_token(
         '2ff814a6-3304-4ab8-85cb-cd0e6f879c1d') if args.databrickskey == None else args.databrickskey
-if not args.skipblobs:
+if (not args.skipblobs == True):
     storage_creds = default_creds if args.storagekey == None else args.storagekey
-    
-
-# databricks = DatabricksSession.builder.remote(
-#   host       = f"https://{args.databricksworkspaceurl}",
-#   token      = databricks_creds,
-#   cluster_id = retrieve_cluster_id()
-# ).getOrCreate()
 
 
-def create_index():
+def populate_index_with_databricks():
     w = WorkspaceClient(
         host=args.databricksworkspaceurl,
         token=databricks_creds.token
@@ -283,12 +259,9 @@ if __name__ == '__main__':
 
     print(f"View the job at {w.config.host}/#job/{j.job_id}\n")
 
-    r=w.jobs.run_now_and_wait(
+    r=w.jobs.submit(
         job_id=j.job_id
     )
-
-
-create_index()
 
 def blob_name_from_file_page(filename, page = 0):
     if os.path.splitext(filename)[1].lower() == ".pdf":
@@ -344,6 +317,30 @@ def remove_blobs(filename):
             if args.verbose: print(f"\tRemoving blob {b}")
             blob_container.delete_blob(b)
 
+def create_search_index():
+    if args.verbose: print(f"Ensuring search index {args.index} exists")
+    index_client = SearchIndexClient(endpoint=f"https://{args.searchservice}.search.windows.net/",
+                                     credential=search_creds)
+    if args.index not in index_client.list_index_names():
+        index = SearchIndex(
+            name=args.index,
+            fields=[
+                SimpleField(name="id", type="Edm.String", key=True),
+                SearchableField(name="content", type="Edm.String", analyzer_name="en.microsoft"),
+                SimpleField(name="category", type="Edm.String", filterable=True, facetable=True),
+                SimpleField(name="sourcepage", type="Edm.String", filterable=True, facetable=True),
+                SimpleField(name="sourcefile", type="Edm.String", filterable=True, facetable=True)
+            ],
+            semantic_settings=SemanticSettings(
+                configurations=[SemanticConfiguration(
+                    name='default',
+                    prioritized_fields=PrioritizedFields(
+                        title_field=None, prioritized_content_fields=[SemanticField(field_name='content')]))])
+        )
+        if args.verbose: print(f"Creating {args.index} search index")
+        index_client.create_index(index)
+    else:
+        if args.verbose: print(f"Search index {args.index} already exists")
 
 if args.removeall:
     remove_blobs(None)
@@ -361,9 +358,12 @@ else:
         elif args.removeall:
             remove_blobs(None)
 #            remove_from_index(None)
-        else:
-            if not args.skipblobs:
-                upload_blobs(filename)
+        # else:
+        #     if (not args.skipblobs == True):
+        #         upload_blobs(filename)
             # page_map = get_document_text(filename)
             # sections = create_sections(os.path.basename(filename), page_map)
             # index_sections(os.path.basename(filename), sections)
+    
+    populate_index_with_databricks()
+    
