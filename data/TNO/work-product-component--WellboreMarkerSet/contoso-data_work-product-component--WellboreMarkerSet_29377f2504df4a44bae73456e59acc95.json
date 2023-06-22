@@ -1,0 +1,218 @@
+{
+  "data": {
+    "SpatialArea.QuantitativeAccuracyBandID": null,
+    "Description": "Wellbore Marker",
+    "ResourceLifecycleStatus": null,
+    "SpatialArea.SpatialParameterTypeID": null,
+    "ResourceCurationStatus": null,
+    "TechnicalAssuranceID": null,
+    "SpatialArea.SpatialGeometryTypeID": null,
+    "Source": null,
+    "IsExtendedLoad": null,
+    "Name": "7645.csv",
+    "Datasets": [
+      "contoso-data:dataset--File.Generic:e0fe58cd-caf2-4dcb-a2a4-b5a8bfb6c60e:1678349762519340"
+    ],
+    "VerticalMeasurement.VerticalCRSID": null,
+    "VerticalMeasurement.VerticalMeasurementTypeID": null,
+    "SpatialPoint.CoordinateQualityCheckPerformedBy": null,
+    "ResourceSecurityClassification": "contoso-data:reference-data--ResourceSecurityClassification:RESTRICTED:",
+    "VerticalMeasurement.WellboreTVDTrajectoryID": null,
+    "VerticalMeasurement.VerticalMeasurementPathID": null,
+    "ExistenceKind": null,
+    "VerticalMeasurement.VerticalMeasurementDescription": null,
+    "SpatialPoint.SpatialParameterTypeID": null,
+    "Markers": [
+      {
+        "Missing": null,
+        "MarkerMeasuredDepth": 0.0,
+        "FeatureTypeID": null,
+        "MarkerTypeID": null,
+        "GeologicalAge": null,
+        "MarkerInterpreter": null,
+        "MarkerName": "Upper North Sea Group",
+        "FeatureName": null
+      },
+      {
+        "Missing": null,
+        "MarkerMeasuredDepth": 512.0,
+        "FeatureTypeID": null,
+        "MarkerTypeID": null,
+        "GeologicalAge": null,
+        "MarkerInterpreter": null,
+        "MarkerName": "Middle North Sea Group",
+        "FeatureName": null
+      },
+      {
+        "Missing": null,
+        "MarkerMeasuredDepth": 546.5,
+        "FeatureTypeID": null,
+        "MarkerTypeID": null,
+        "GeologicalAge": null,
+        "MarkerInterpreter": null,
+        "MarkerName": "Lower North Sea Group",
+        "FeatureName": null
+      },
+      {
+        "Missing": null,
+        "MarkerMeasuredDepth": 582.0,
+        "FeatureTypeID": null,
+        "MarkerTypeID": null,
+        "GeologicalAge": null,
+        "MarkerInterpreter": null,
+        "MarkerName": "Ommelanden Formation",
+        "FeatureName": null
+      },
+      {
+        "Missing": null,
+        "MarkerMeasuredDepth": 1050.0,
+        "FeatureTypeID": null,
+        "MarkerTypeID": null,
+        "GeologicalAge": null,
+        "MarkerInterpreter": null,
+        "MarkerName": "Texel Formation",
+        "FeatureName": null
+      },
+      {
+        "Missing": null,
+        "MarkerMeasuredDepth": 1300.0,
+        "FeatureTypeID": null,
+        "MarkerTypeID": null,
+        "GeologicalAge": null,
+        "MarkerInterpreter": null,
+        "MarkerName": "Upper Holland Marl Member",
+        "FeatureName": null
+      },
+      {
+        "Missing": null,
+        "MarkerMeasuredDepth": 1527.0,
+        "FeatureTypeID": null,
+        "MarkerTypeID": null,
+        "GeologicalAge": null,
+        "MarkerInterpreter": null,
+        "MarkerName": "Middle Holland Claystone Member",
+        "FeatureName": null
+      },
+      {
+        "Missing": null,
+        "MarkerMeasuredDepth": 1591.5,
+        "FeatureTypeID": null,
+        "MarkerTypeID": null,
+        "GeologicalAge": null,
+        "MarkerInterpreter": null,
+        "MarkerName": "Holland Greensand Member",
+        "FeatureName": null
+      },
+      {
+        "Missing": null,
+        "MarkerMeasuredDepth": 1623.5,
+        "FeatureTypeID": null,
+        "MarkerTypeID": null,
+        "GeologicalAge": null,
+        "MarkerInterpreter": null,
+        "MarkerName": "Lower Holland Marl Member",
+        "FeatureName": null
+      },
+      {
+        "Missing": null,
+        "MarkerMeasuredDepth": 1708.0,
+        "FeatureTypeID": null,
+        "MarkerTypeID": null,
+        "GeologicalAge": null,
+        "MarkerInterpreter": null,
+        "MarkerName": "Vlieland Claystone Formation",
+        "FeatureName": null
+      },
+      {
+        "Missing": null,
+        "MarkerMeasuredDepth": 1917.0,
+        "FeatureTypeID": null,
+        "MarkerTypeID": null,
+        "GeologicalAge": null,
+        "MarkerInterpreter": null,
+        "MarkerName": "Rijn Member",
+        "FeatureName": null
+      },
+      {
+        "Missing": null,
+        "MarkerMeasuredDepth": 1948.0,
+        "FeatureTypeID": null,
+        "MarkerTypeID": null,
+        "GeologicalAge": null,
+        "MarkerInterpreter": null,
+        "MarkerName": "Nieuwerkerk Formation",
+        "FeatureName": null
+      },
+      {
+        "Missing": null,
+        "MarkerMeasuredDepth": 2012.0,
+        "FeatureTypeID": null,
+        "MarkerTypeID": null,
+        "GeologicalAge": null,
+        "MarkerInterpreter": null,
+        "MarkerName": "Werkendam Formation",
+        "FeatureName": null
+      },
+      {
+        "Missing": null,
+        "MarkerMeasuredDepth": 2097.67,
+        "FeatureTypeID": null,
+        "MarkerTypeID": null,
+        "GeologicalAge": null,
+        "MarkerInterpreter": null,
+        "MarkerName": "Posidonia Shale Formation",
+        "FeatureName": null
+      },
+      {
+        "Missing": null,
+        "MarkerMeasuredDepth": 2136.67,
+        "FeatureTypeID": null,
+        "MarkerTypeID": null,
+        "GeologicalAge": null,
+        "MarkerInterpreter": null,
+        "MarkerName": "Aalburg Formation",
+        "FeatureName": null
+      }
+    ],
+    "WellboreID": "contoso-data:master-data--Wellbore:7645:",
+    "VerticalMeasurement.VerticalMeasurementUnitOfMeasureID": null,
+    "SpatialPoint.QuantitativeAccuracyBandID": null,
+    "SpatialArea.QualitativeSpatialAccuracyTypeID": null,
+    "SpatialArea.CoordinateQualityCheckPerformedBy": null,
+    "VerticalMeasurement.VerticalReferenceEntityID": null,
+    "SpatialPoint.SpatialGeometryTypeID": null,
+    "ResourceHomeRegionID": null,
+    "VerticalMeasurement.VerticalMeasurementSourceID": null,
+    "IsDiscoverable": null,
+    "VerticalMeasurement.VerticalReferenceID": null,
+    "SubmitterName": null,
+    "SpatialPoint.QualitativeSpatialAccuracyTypeID": null
+  },
+  "kind": "osdu:wks:work-product-component--WellboreMarkerSet:1.0.0",
+  "source": "wks",
+  "acl": {
+    "viewers": [
+      "data.default.viewers@contoso-data.dataservices.energy"
+    ],
+    "owners": [
+      "data.default.owners@contoso-data.dataservices.energy"
+    ]
+  },
+  "type": "work-product-component--WellboreMarkerSet",
+  "version": 1678352408731052,
+  "tags": null,
+  "createTime": "2023-03-09T09:00:08.738Z",
+  "authority": "osdu",
+  "namespace": "osdu:wks",
+  "legal": {
+    "legaltags": [
+      "contoso-data-open-test-data"
+    ],
+    "otherRelevantDataCountries": [
+      "US"
+    ],
+    "status": "compliant"
+  },
+  "createUser": "a9b01ec8-23d6-41c6-8773-89cf40351b9a",
+  "id": "contoso-data:work-product-component--WellboreMarkerSet:29377f2504df4a44bae73456e59acc95"
+}

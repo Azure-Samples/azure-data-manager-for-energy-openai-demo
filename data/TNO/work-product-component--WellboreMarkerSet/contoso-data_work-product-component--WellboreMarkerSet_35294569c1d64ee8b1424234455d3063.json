@@ -1,0 +1,258 @@
+{
+  "data": {
+    "SpatialArea.QuantitativeAccuracyBandID": null,
+    "Description": "Wellbore Marker",
+    "ResourceLifecycleStatus": null,
+    "SpatialArea.SpatialParameterTypeID": null,
+    "ResourceCurationStatus": null,
+    "TechnicalAssuranceID": null,
+    "SpatialArea.SpatialGeometryTypeID": null,
+    "Source": null,
+    "IsExtendedLoad": null,
+    "Name": "3737.csv",
+    "Datasets": [
+      "contoso-data:dataset--File.Generic:9e61b8c7-f476-4571-ac35-4783dc2e57fa:1678349681957143"
+    ],
+    "VerticalMeasurement.VerticalCRSID": null,
+    "VerticalMeasurement.VerticalMeasurementTypeID": null,
+    "SpatialPoint.CoordinateQualityCheckPerformedBy": null,
+    "ResourceSecurityClassification": "contoso-data:reference-data--ResourceSecurityClassification:RESTRICTED:",
+    "VerticalMeasurement.WellboreTVDTrajectoryID": null,
+    "VerticalMeasurement.VerticalMeasurementPathID": null,
+    "ExistenceKind": null,
+    "VerticalMeasurement.VerticalMeasurementDescription": null,
+    "SpatialPoint.SpatialParameterTypeID": null,
+    "Markers": [
+      {
+        "Missing": null,
+        "MarkerMeasuredDepth": 0.0,
+        "FeatureTypeID": null,
+        "MarkerTypeID": null,
+        "GeologicalAge": null,
+        "MarkerInterpreter": null,
+        "MarkerName": "Maassluis Formation",
+        "FeatureName": null
+      },
+      {
+        "Missing": null,
+        "MarkerMeasuredDepth": 390.0,
+        "FeatureTypeID": null,
+        "MarkerTypeID": null,
+        "GeologicalAge": null,
+        "MarkerInterpreter": null,
+        "MarkerName": "Breda Formation",
+        "FeatureName": null
+      },
+      {
+        "Missing": null,
+        "MarkerMeasuredDepth": 470.0,
+        "FeatureTypeID": null,
+        "MarkerTypeID": null,
+        "GeologicalAge": null,
+        "MarkerInterpreter": null,
+        "MarkerName": "Dongen Formation",
+        "FeatureName": null
+      },
+      {
+        "Missing": null,
+        "MarkerMeasuredDepth": 551.0,
+        "FeatureTypeID": null,
+        "MarkerTypeID": null,
+        "GeologicalAge": null,
+        "MarkerInterpreter": null,
+        "MarkerName": "Basal Dongen Sand Member",
+        "FeatureName": null
+      },
+      {
+        "Missing": null,
+        "MarkerMeasuredDepth": 561.0,
+        "FeatureTypeID": null,
+        "MarkerTypeID": null,
+        "GeologicalAge": null,
+        "MarkerInterpreter": null,
+        "MarkerName": "Landen Clay Member",
+        "FeatureName": null
+      },
+      {
+        "Missing": null,
+        "MarkerMeasuredDepth": 582.0,
+        "FeatureTypeID": null,
+        "MarkerTypeID": null,
+        "GeologicalAge": null,
+        "MarkerInterpreter": null,
+        "MarkerName": "Ommelanden Formation",
+        "FeatureName": null
+      },
+      {
+        "Missing": null,
+        "MarkerMeasuredDepth": 657.0,
+        "FeatureTypeID": null,
+        "MarkerTypeID": null,
+        "GeologicalAge": null,
+        "MarkerInterpreter": null,
+        "MarkerName": "Texel Formation",
+        "FeatureName": null
+      },
+      {
+        "Missing": null,
+        "MarkerMeasuredDepth": 667.0,
+        "FeatureTypeID": null,
+        "MarkerTypeID": null,
+        "GeologicalAge": null,
+        "MarkerInterpreter": null,
+        "MarkerName": "Middle Holland Claystone Member",
+        "FeatureName": null
+      },
+      {
+        "Missing": null,
+        "MarkerMeasuredDepth": 694.0,
+        "FeatureTypeID": null,
+        "MarkerTypeID": null,
+        "GeologicalAge": null,
+        "MarkerInterpreter": null,
+        "MarkerName": "Holland Greensand Member",
+        "FeatureName": null
+      },
+      {
+        "Missing": null,
+        "MarkerMeasuredDepth": 730.0,
+        "FeatureTypeID": null,
+        "MarkerTypeID": null,
+        "GeologicalAge": null,
+        "MarkerInterpreter": null,
+        "MarkerName": "Lower Holland Marl Member",
+        "FeatureName": null
+      },
+      {
+        "Missing": null,
+        "MarkerMeasuredDepth": 879.0,
+        "FeatureTypeID": null,
+        "MarkerTypeID": null,
+        "GeologicalAge": null,
+        "MarkerInterpreter": null,
+        "MarkerName": "De Lier Member",
+        "FeatureName": null
+      },
+      {
+        "Missing": null,
+        "MarkerMeasuredDepth": 979.0,
+        "FeatureTypeID": null,
+        "MarkerTypeID": null,
+        "GeologicalAge": null,
+        "MarkerInterpreter": null,
+        "MarkerName": "Eemhaven Member",
+        "FeatureName": null
+      },
+      {
+        "Missing": null,
+        "MarkerMeasuredDepth": 990.0,
+        "FeatureTypeID": null,
+        "MarkerTypeID": null,
+        "GeologicalAge": null,
+        "MarkerInterpreter": null,
+        "MarkerName": "IJsselmonde Sandstone Member",
+        "FeatureName": null
+      },
+      {
+        "Missing": null,
+        "MarkerMeasuredDepth": 1152.0,
+        "FeatureTypeID": null,
+        "MarkerTypeID": null,
+        "GeologicalAge": null,
+        "MarkerInterpreter": null,
+        "MarkerName": "IJsselmonde Claystone Member",
+        "FeatureName": null
+      },
+      {
+        "Missing": null,
+        "MarkerMeasuredDepth": 1163.0,
+        "FeatureTypeID": null,
+        "MarkerTypeID": null,
+        "GeologicalAge": null,
+        "MarkerInterpreter": null,
+        "MarkerName": "Rodenrijs Claystone Member",
+        "FeatureName": null
+      },
+      {
+        "Missing": null,
+        "MarkerMeasuredDepth": 1349.65,
+        "FeatureTypeID": null,
+        "MarkerTypeID": null,
+        "GeologicalAge": null,
+        "MarkerInterpreter": null,
+        "MarkerName": "Delft Sandstone Member",
+        "FeatureName": null
+      },
+      {
+        "Missing": null,
+        "MarkerMeasuredDepth": 1374.05,
+        "FeatureTypeID": null,
+        "MarkerTypeID": null,
+        "GeologicalAge": null,
+        "MarkerInterpreter": null,
+        "MarkerName": "Alblasserdam Member",
+        "FeatureName": null
+      },
+      {
+        "Missing": null,
+        "MarkerMeasuredDepth": 2005.0,
+        "FeatureTypeID": null,
+        "MarkerTypeID": null,
+        "GeologicalAge": null,
+        "MarkerInterpreter": null,
+        "MarkerName": "Lower Brabant Limestone Member",
+        "FeatureName": null
+      },
+      {
+        "Missing": null,
+        "MarkerMeasuredDepth": 2077.5,
+        "FeatureTypeID": null,
+        "MarkerTypeID": null,
+        "GeologicalAge": null,
+        "MarkerInterpreter": null,
+        "MarkerName": "Upper Werkendam Member",
+        "FeatureName": null
+      }
+    ],
+    "WellboreID": "contoso-data:master-data--Wellbore:3737:",
+    "VerticalMeasurement.VerticalMeasurementUnitOfMeasureID": null,
+    "SpatialPoint.QuantitativeAccuracyBandID": null,
+    "SpatialArea.QualitativeSpatialAccuracyTypeID": null,
+    "SpatialArea.CoordinateQualityCheckPerformedBy": null,
+    "VerticalMeasurement.VerticalReferenceEntityID": null,
+    "SpatialPoint.SpatialGeometryTypeID": null,
+    "ResourceHomeRegionID": null,
+    "VerticalMeasurement.VerticalMeasurementSourceID": null,
+    "IsDiscoverable": null,
+    "VerticalMeasurement.VerticalReferenceID": null,
+    "SubmitterName": null,
+    "SpatialPoint.QualitativeSpatialAccuracyTypeID": null
+  },
+  "kind": "osdu:wks:work-product-component--WellboreMarkerSet:1.0.0",
+  "source": "wks",
+  "acl": {
+    "viewers": [
+      "data.default.viewers@contoso-data.dataservices.energy"
+    ],
+    "owners": [
+      "data.default.owners@contoso-data.dataservices.energy"
+    ]
+  },
+  "type": "work-product-component--WellboreMarkerSet",
+  "version": 1678352149940617,
+  "tags": null,
+  "createTime": "2023-03-09T08:55:49.947Z",
+  "authority": "osdu",
+  "namespace": "osdu:wks",
+  "legal": {
+    "legaltags": [
+      "contoso-data-open-test-data"
+    ],
+    "otherRelevantDataCountries": [
+      "US"
+    ],
+    "status": "compliant"
+  },
+  "createUser": "a9b01ec8-23d6-41c6-8773-89cf40351b9a",
+  "id": "contoso-data:work-product-component--WellboreMarkerSet:35294569c1d64ee8b1424234455d3063"
+}

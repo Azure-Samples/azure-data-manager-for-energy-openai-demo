@@ -1,0 +1,278 @@
+{
+  "data": {
+    "SpatialArea.QuantitativeAccuracyBandID": null,
+    "Description": "Wellbore Marker",
+    "ResourceLifecycleStatus": null,
+    "SpatialArea.SpatialParameterTypeID": null,
+    "ResourceCurationStatus": null,
+    "TechnicalAssuranceID": null,
+    "SpatialArea.SpatialGeometryTypeID": null,
+    "Source": null,
+    "IsExtendedLoad": null,
+    "Name": "2473.csv",
+    "Datasets": [
+      "contoso-data:dataset--File.Generic:b78485ac-dbe9-43f6-a869-d3b8aa627037:1678349612593255"
+    ],
+    "VerticalMeasurement.VerticalCRSID": null,
+    "VerticalMeasurement.VerticalMeasurementTypeID": null,
+    "SpatialPoint.CoordinateQualityCheckPerformedBy": null,
+    "ResourceSecurityClassification": "contoso-data:reference-data--ResourceSecurityClassification:RESTRICTED:",
+    "VerticalMeasurement.WellboreTVDTrajectoryID": null,
+    "VerticalMeasurement.VerticalMeasurementPathID": null,
+    "ExistenceKind": null,
+    "VerticalMeasurement.VerticalMeasurementDescription": null,
+    "SpatialPoint.SpatialParameterTypeID": null,
+    "Markers": [
+      {
+        "Missing": null,
+        "MarkerMeasuredDepth": 0.0,
+        "FeatureTypeID": null,
+        "MarkerTypeID": null,
+        "GeologicalAge": null,
+        "MarkerInterpreter": null,
+        "MarkerName": "North Sea Supergroup",
+        "FeatureName": null
+      },
+      {
+        "Missing": null,
+        "MarkerMeasuredDepth": 1135.0,
+        "FeatureTypeID": null,
+        "MarkerTypeID": null,
+        "GeologicalAge": null,
+        "MarkerInterpreter": null,
+        "MarkerName": "Chalk Group",
+        "FeatureName": null
+      },
+      {
+        "Missing": null,
+        "MarkerMeasuredDepth": 2163.0,
+        "FeatureTypeID": null,
+        "MarkerTypeID": null,
+        "GeologicalAge": null,
+        "MarkerInterpreter": null,
+        "MarkerName": "Holland Formation",
+        "FeatureName": null
+      },
+      {
+        "Missing": null,
+        "MarkerMeasuredDepth": 2220.0,
+        "FeatureTypeID": null,
+        "MarkerTypeID": null,
+        "GeologicalAge": null,
+        "MarkerInterpreter": null,
+        "MarkerName": "Vlieland Claystone Formation",
+        "FeatureName": null
+      },
+      {
+        "Missing": null,
+        "MarkerMeasuredDepth": 2305.5,
+        "FeatureTypeID": null,
+        "MarkerTypeID": null,
+        "GeologicalAge": null,
+        "MarkerInterpreter": null,
+        "MarkerName": "Friesland Member",
+        "FeatureName": null
+      },
+      {
+        "Missing": null,
+        "MarkerMeasuredDepth": 2318.5,
+        "FeatureTypeID": null,
+        "MarkerTypeID": null,
+        "GeologicalAge": null,
+        "MarkerInterpreter": null,
+        "MarkerName": "Main Claystone Member",
+        "FeatureName": null
+      },
+      {
+        "Missing": null,
+        "MarkerMeasuredDepth": 2350.5,
+        "FeatureTypeID": null,
+        "MarkerTypeID": null,
+        "GeologicalAge": null,
+        "MarkerInterpreter": null,
+        "MarkerName": "Z4 Pegmatite Anhydrite Member",
+        "FeatureName": null
+      },
+      {
+        "Missing": null,
+        "MarkerMeasuredDepth": 2354.0,
+        "FeatureTypeID": null,
+        "MarkerTypeID": null,
+        "GeologicalAge": null,
+        "MarkerInterpreter": null,
+        "MarkerName": "Red Salt Clay Member",
+        "FeatureName": null
+      },
+      {
+        "Missing": null,
+        "MarkerMeasuredDepth": 2359.0,
+        "FeatureTypeID": null,
+        "MarkerTypeID": null,
+        "GeologicalAge": null,
+        "MarkerInterpreter": null,
+        "MarkerName": "Z3 Salt Member",
+        "FeatureName": null
+      },
+      {
+        "Missing": null,
+        "MarkerMeasuredDepth": 2381.0,
+        "FeatureTypeID": null,
+        "MarkerTypeID": null,
+        "GeologicalAge": null,
+        "MarkerInterpreter": null,
+        "MarkerName": "Z3 Main Anhydrite Member",
+        "FeatureName": null
+      },
+      {
+        "Missing": null,
+        "MarkerMeasuredDepth": 2389.0,
+        "FeatureTypeID": null,
+        "MarkerTypeID": null,
+        "GeologicalAge": null,
+        "MarkerInterpreter": null,
+        "MarkerName": "Z3 Carbonate Member",
+        "FeatureName": null
+      },
+      {
+        "Missing": null,
+        "MarkerMeasuredDepth": 2392.0,
+        "FeatureTypeID": null,
+        "MarkerTypeID": null,
+        "GeologicalAge": null,
+        "MarkerInterpreter": null,
+        "MarkerName": "Grey Salt Clay Member",
+        "FeatureName": null
+      },
+      {
+        "Missing": null,
+        "MarkerMeasuredDepth": 2393.5,
+        "FeatureTypeID": null,
+        "MarkerTypeID": null,
+        "GeologicalAge": null,
+        "MarkerInterpreter": null,
+        "MarkerName": "Z2 Roof Anhydrite Member",
+        "FeatureName": null
+      },
+      {
+        "Missing": null,
+        "MarkerMeasuredDepth": 2394.5,
+        "FeatureTypeID": null,
+        "MarkerTypeID": null,
+        "GeologicalAge": null,
+        "MarkerInterpreter": null,
+        "MarkerName": "Z2 Salt Member",
+        "FeatureName": null
+      },
+      {
+        "Missing": null,
+        "MarkerMeasuredDepth": 2805.0,
+        "FeatureTypeID": null,
+        "MarkerTypeID": null,
+        "GeologicalAge": null,
+        "MarkerInterpreter": null,
+        "MarkerName": "Z2 Basal Anhydrite Member",
+        "FeatureName": null
+      },
+      {
+        "Missing": null,
+        "MarkerMeasuredDepth": 2813.0,
+        "FeatureTypeID": null,
+        "MarkerTypeID": null,
+        "GeologicalAge": null,
+        "MarkerInterpreter": null,
+        "MarkerName": "Z2 Carbonate Member",
+        "FeatureName": null
+      },
+      {
+        "Missing": null,
+        "MarkerMeasuredDepth": 2824.5,
+        "FeatureTypeID": null,
+        "MarkerTypeID": null,
+        "GeologicalAge": null,
+        "MarkerInterpreter": null,
+        "MarkerName": "Z1 Anhydrite Member",
+        "FeatureName": null
+      },
+      {
+        "Missing": null,
+        "MarkerMeasuredDepth": 2855.0,
+        "FeatureTypeID": null,
+        "MarkerTypeID": null,
+        "GeologicalAge": null,
+        "MarkerInterpreter": null,
+        "MarkerName": "Z1 Carbonate Member",
+        "FeatureName": null
+      },
+      {
+        "Missing": null,
+        "MarkerMeasuredDepth": 2867.0,
+        "FeatureTypeID": null,
+        "MarkerTypeID": null,
+        "GeologicalAge": null,
+        "MarkerInterpreter": null,
+        "MarkerName": "Coppershale Member",
+        "FeatureName": null
+      },
+      {
+        "Missing": null,
+        "MarkerMeasuredDepth": 2868.0,
+        "FeatureTypeID": null,
+        "MarkerTypeID": null,
+        "GeologicalAge": null,
+        "MarkerInterpreter": null,
+        "MarkerName": "Ten Boer Member",
+        "FeatureName": null
+      },
+      {
+        "Missing": null,
+        "MarkerMeasuredDepth": 2968.0,
+        "FeatureTypeID": null,
+        "MarkerTypeID": null,
+        "GeologicalAge": null,
+        "MarkerInterpreter": null,
+        "MarkerName": "Upper Slochteren Member",
+        "FeatureName": null
+      }
+    ],
+    "WellboreID": "contoso-data:master-data--Wellbore:2473:",
+    "VerticalMeasurement.VerticalMeasurementUnitOfMeasureID": null,
+    "SpatialPoint.QuantitativeAccuracyBandID": null,
+    "SpatialArea.QualitativeSpatialAccuracyTypeID": null,
+    "SpatialArea.CoordinateQualityCheckPerformedBy": null,
+    "VerticalMeasurement.VerticalReferenceEntityID": null,
+    "SpatialPoint.SpatialGeometryTypeID": null,
+    "ResourceHomeRegionID": null,
+    "VerticalMeasurement.VerticalMeasurementSourceID": null,
+    "IsDiscoverable": null,
+    "VerticalMeasurement.VerticalReferenceID": null,
+    "SubmitterName": null,
+    "SpatialPoint.QualitativeSpatialAccuracyTypeID": null
+  },
+  "kind": "osdu:wks:work-product-component--WellboreMarkerSet:1.0.0",
+  "source": "wks",
+  "acl": {
+    "viewers": [
+      "data.default.viewers@contoso-data.dataservices.energy"
+    ],
+    "owners": [
+      "data.default.owners@contoso-data.dataservices.energy"
+    ]
+  },
+  "type": "work-product-component--WellboreMarkerSet",
+  "version": 1678351944704606,
+  "tags": null,
+  "createTime": "2023-03-09T08:52:24.71Z",
+  "authority": "osdu",
+  "namespace": "osdu:wks",
+  "legal": {
+    "legaltags": [
+      "contoso-data-open-test-data"
+    ],
+    "otherRelevantDataCountries": [
+      "US"
+    ],
+    "status": "compliant"
+  },
+  "createUser": "a9b01ec8-23d6-41c6-8773-89cf40351b9a",
+  "id": "contoso-data:work-product-component--WellboreMarkerSet:5c5ee32140cc4d5ea183fd36055cf50f"
+}

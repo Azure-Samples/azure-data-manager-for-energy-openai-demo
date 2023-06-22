@@ -13,7 +13,7 @@ param appServicePlanName string = ''
 param backendServiceName string = ''
 param resourceGroupName string = ''
 
-param searchServiceName string = ''
+param searchServiceName string = 'gptkbindex'
 param searchServiceResourceGroupName string = ''
 param searchServiceResourceGroupLocation string = location
 
@@ -24,6 +24,12 @@ param storageAccountName string = ''
 param storageResourceGroupName string = ''
 param storageResourceGroupLocation string = location
 param storageContainerName string = 'content'
+
+param databricksWorkspaceName string = ''
+param databricksWorkspaceSkuName string = 'trial'
+param databricksResourceGroupName string = ''
+param databricksManagedResourceGroupName string = ''
+param databricksResourceGroupLocation string = location
 
 param openAiServiceName string = ''
 param openAiResourceGroupName string = ''
@@ -60,12 +66,20 @@ resource openAiResourceGroup 'Microsoft.Resources/resourceGroups@2021-04-01' exi
   name: !empty(openAiResourceGroupName) ? openAiResourceGroupName : resourceGroup.name
 }
 
+resource databricksManagedResourceGroup 'Microsoft.Resources/resourceGroups@2021-04-01' existing = if (!empty(databricksManagedResourceGroupName)) {
+  name: !empty(databricksManagedResourceGroupName) ? databricksManagedResourceGroupName : '${abbrs.resourcesResourceGroups}${environmentName}-databricks'
+}
+
 // resource formRecognizerResourceGroup 'Microsoft.Resources/resourceGroups@2021-04-01' existing = if (!empty(formRecognizerResourceGroupName)) {
 //   name: !empty(formRecognizerResourceGroupName) ? formRecognizerResourceGroupName : resourceGroup.name
 // }
 
 resource searchServiceResourceGroup 'Microsoft.Resources/resourceGroups@2021-04-01' existing = if (!empty(searchServiceResourceGroupName)) {
   name: !empty(searchServiceResourceGroupName) ? searchServiceResourceGroupName : resourceGroup.name
+}
+
+resource databricksResourceGroup 'Microsoft.Resources/resourceGroups@2021-04-01' existing = if (!empty(databricksResourceGroupName)) {
+  name: !empty(databricksResourceGroupName) ? databricksResourceGroupName : resourceGroup.name
 }
 
 resource storageResourceGroup 'Microsoft.Resources/resourceGroups@2021-04-01' existing = if (!empty(storageResourceGroupName)) {
@@ -78,7 +92,7 @@ module appServicePlan 'core/host/appserviceplan.bicep' = {
   scope: resourceGroup
   params: {
     name: !empty(appServicePlanName) ? appServicePlanName : '${abbrs.webServerFarms}${resourceToken}'
-    location: 'eastus'
+    location: location
     tags: tags
     sku: {
       name: 'B1'
@@ -94,7 +108,7 @@ module backend 'core/host/appservice.bicep' = {
   scope: resourceGroup
   params: {
     name: !empty(backendServiceName) ? backendServiceName : '${abbrs.webSitesAppService}backend-${resourceToken}'
-    location: 'eastus'
+    location: location
     tags: union(tags, { 'azd-service-name': 'backend' })
     appServicePlanId: appServicePlan.outputs.id
     runtimeName: 'python'
@@ -183,6 +197,21 @@ module searchService 'core/search/search-services.bicep' = {
   }
 }
 
+// add a databricks module
+module databricks 'core/databricks/databricks.bicep' = {
+  name: 'databricks'
+  scope: databricksResourceGroup
+  params: {
+    name: !empty(databricksWorkspaceName) ? databricksWorkspaceName : '${abbrs.databricksWorkspaces}${resourceToken}'
+    location: databricksResourceGroupLocation
+    tags: tags
+    managedResourceGroupName: databricksManagedResourceGroup.name
+    sku: {
+      name: databricksWorkspaceSkuName
+    }
+  }
+}
+
 module storage 'core/storage/storage-account.bicep' = {
   name: 'storage'
   scope: storageResourceGroup
@@ -192,7 +221,7 @@ module storage 'core/storage/storage-account.bicep' = {
     tags: tags
     publicNetworkAccess: 'Enabled'
     sku: {
-      name: 'Standard_ZRS'
+      name: 'Standard_LRS'
     }
     deleteRetentionPolicy: {
       enabled: true
@@ -309,6 +338,30 @@ module searchRoleBackend 'core/security/role.bicep' = {
   }
 }
 
+// REMOVED AS THIS IS NOT CURRENTLY WORKING, SEE https://github.com/Azure/bicep/issues/11035
+// DATABRICKS ROLE ASSIGNMENT IS DONE IN THE POST-DEPLOY SCRIPT
+// module storageRoleBackendDatabricks 'core/security/role.bicep' = {
+//   scope: storageResourceGroup
+//   name: 'storage-role-backend-databricks'
+//   params: {
+//     principalId: databricks.outputs.identity
+//     roleDefinitionId: 'ba92f5b4-2d11-453d-a403-e96b0029c9fe'
+//     principalType: 'ServicePrincipal'
+//   }
+// }
+
+// REMOVED AS THIS IS NOT CURRENTLY WORKING, SEE https://github.com/Azure/bicep/issues/11035
+// DATABRICKS ROLE ASSIGNMENT IS DONE IN THE POST-DEPLOY SCRIPT
+// module searchRoleBackendDatabricks 'core/security/role.bicep' = {
+//   scope: searchServiceResourceGroup
+//   name: 'search-role-backend-databricks'
+//   params: {
+//     principalId: databricks.outputs.identity
+//     roleDefinitionId: '8ebe5a00-799e-43f5-93ac-243d3dce84a7'
+//     principalType: 'ServicePrincipal'
+//   }
+// }
+
 output AZURE_LOCATION string = location
 output AZURE_TENANT_ID string = tenant().tenantId
 output AZURE_RESOURCE_GROUP string = resourceGroup.name
@@ -328,5 +381,12 @@ output AZURE_SEARCH_SERVICE_RESOURCE_GROUP string = searchServiceResourceGroup.n
 output AZURE_STORAGE_ACCOUNT string = storage.outputs.name
 output AZURE_STORAGE_CONTAINER string = storageContainerName
 output AZURE_STORAGE_RESOURCE_GROUP string = storageResourceGroup.name
+
+output AZURE_DATABRICKS_WORKSPACE string = databricks.outputs.name
+output AZURE_DATABRICKS_RESOURCE_GROUP string = databricksResourceGroup.name
+output AZURE_DATABRICKS_WORKSPACE_URL string = databricks.outputs.workspaceurl
+output AZURE_DATABRICKS_WORKSPACE_ID string = databricks.outputs.workspaceid
+output AZURE_DATABRICKS_MANAGED_RESOURCE_GROUP string = databricks.outputs.managedresourcegroup
+// output AZURE_DATABRICKS_MANAGED_IDENTITY string = databricks.outputs.identity
 
 output BACKEND_URI string = backend.outputs.uri

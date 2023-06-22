@@ -1,0 +1,141 @@
+{
+  "data": {
+    "FacilityStates": [
+      {
+        "FacilityStateTypeID": "contoso-data:reference-data--FacilityStateType:ShutIn:"
+      }
+    ],
+    "ResourceLifecycleStatus": null,
+    "DefaultVerticalMeasurementID": "GL",
+    "SpatialLocation.Wgs84Coordinates": {
+      "geometries": [
+        {
+          "coordinates": [
+            6.81676491,
+            52.22696798
+          ],
+          "type": "point"
+        }
+      ],
+      "type": "geometrycollection"
+    },
+    "ResourceCurationStatus": null,
+    "TechnicalAssuranceID": null,
+    "Source": "TNO",
+    "FacilityName": "TWR-229",
+    "FacilityID": null,
+    "VerticalMeasurements": [
+      {
+        "WellboreTVDTrajectoryID": null,
+        "VerticalCRSID": "contoso-data:reference-data--CoordinateReferenceSystem:5709:",
+        "VerticalReferenceID": null,
+        "VerticalMeasurementSourceID": null,
+        "VerticalMeasurementID": "GL",
+        "VerticalMeasurementPathID": "contoso-data:reference-data--VerticalMeasurementPath:Elevation:",
+        "VerticalMeasurement": 23.99,
+        "VerticalMeasurementTypeID": "contoso-data:reference-data--VerticalMeasurementType:GL:",
+        "VerticalMeasurementDescription": null,
+        "VerticalMeasurementUnitOfMeasureID": null,
+        "VerticalReferenceEntityID": null
+      }
+    ],
+    "VersionCreationReason": null,
+    "ResourceSecurityClassification": null,
+    "InterestTypeID": null,
+    "DataSourceOrganisationID": null,
+    "SpatialLocation.SpatialParameterTypeID": null,
+    "ExistenceKind": null,
+    "SpatialLocation.CoordinateQualityCheckPerformedBy": null,
+    "FacilityOperators": [
+      {
+        "FacilityOperatorID": null,
+        "FacilityOperatorOrganisationID": "contoso-data:master-data--Organisation:Akzo:"
+      }
+    ],
+    "FacilityTypeID": "contoso-data:reference-data--FacilityType:Well:",
+    "NameAliases": [
+      {
+        "AliasName": "TWR-229",
+        "AliasNameTypeID": "contoso-data:reference-data--AliasNameType:Well:",
+        "DefinitionOrganisationID": null
+      },
+      {
+        "AliasName": "2435",
+        "AliasNameTypeID": "contoso-data:reference-data--AliasNameType:UWI:",
+        "DefinitionOrganisationID": null
+      }
+    ],
+    "DefaultVerticalCRSID": null,
+    "FacilityEvents": [
+      {
+        "EffectiveDateTime": "1971-06-10T02:00:00+02:00",
+        "FacilityEventTypeID": "contoso-data:reference-data--FacilityEventType:Spud:"
+      },
+      {
+        "EffectiveDateTime": "1971-06-22T02:00:00+02:00",
+        "FacilityEventTypeID": "contoso-data:reference-data--FacilityEventType:TDReached:"
+      }
+    ],
+    "TechnicalAssuranceTypeID": null,
+    "GeoContexts": [
+      {
+        "BasinID": null,
+        "FieldID": null,
+        "PlayID": null,
+        "GeoPoliticalEntityID": "contoso-data:master-data--GeoPoliticalEntity:Netherlands_Country:",
+        "GeoTypeID": "contoso-data:reference-data--GeoPoliticalEntityType:Country:",
+        "ProspectID": null
+      },
+      {
+        "BasinID": null,
+        "FieldID": null,
+        "PlayID": null,
+        "GeoPoliticalEntityID": "contoso-data:master-data--GeoPoliticalEntity:Overijssel_Province:",
+        "GeoTypeID": "contoso-data:reference-data--GeoPoliticalEntityType:Province:",
+        "ProspectID": null
+      },
+      {
+        "BasinID": null,
+        "FieldID": null,
+        "PlayID": null,
+        "GeoPoliticalEntityID": "contoso-data:master-data--GeoPoliticalEntity:O_Quadrant:",
+        "GeoTypeID": "contoso-data:reference-data--GeoPoliticalEntityType:Quadrant:",
+        "ProspectID": null
+      }
+    ],
+    "CurrentOperatorID": null,
+    "SpatialLocation.QualitativeSpatialAccuracyTypeID": null,
+    "SpatialLocation.SpatialGeometryTypeID": null,
+    "OperatingEnvironmentID": "contoso-data:reference-data--OperatingEnvironment:On:",
+    "ResourceHomeRegionID": null,
+    "InitialOperatorID": null,
+    "SpatialLocation.QuantitativeAccuracyBandID": null
+  },
+  "kind": "osdu:wks:master-data--Well:1.0.0",
+  "source": "wks",
+  "acl": {
+    "viewers": [
+      "data.default.viewers@contoso-data.dataservices.energy"
+    ],
+    "owners": [
+      "data.default.owners@contoso-data.dataservices.energy"
+    ]
+  },
+  "type": "master-data--Well",
+  "version": 1678351146187150,
+  "tags": null,
+  "createTime": "2023-03-09T08:39:06.195Z",
+  "authority": "osdu",
+  "namespace": "osdu:wks",
+  "legal": {
+    "legaltags": [
+      "contoso-data-open-test-data"
+    ],
+    "otherRelevantDataCountries": [
+      "US"
+    ],
+    "status": "compliant"
+  },
+  "createUser": "a9b01ec8-23d6-41c6-8773-89cf40351b9a",
+  "id": "contoso-data:master-data--Well:2435"
+}

@@ -49,13 +49,14 @@ You can run this repo virtually by using GitHub Codespaces or VS Code Remote Con
 
 1. Create a new folder and switch to it in the terminal
 1. Run `azd auth login`
-1. Run `azd init -t admeGPT`
+1. Run `azd init -t https://github.com/EirikHaughom/admeGPT`
     * For the target location, the regions that currently support the models used in this sample are **East US** or **South Central US**. For an up-to-date list of regions and models, check [here](https://learn.microsoft.com/en-us/azure/cognitive-services/openai/concepts/models)
 
 #### Starting from scratch:
 
 Execute the following command, if you don't have any pre-existing Azure services and want to start from a fresh deployment.
 
+1. Run `az login --scope https://graph.microsoft.com//.default` - This is used to perform the Databricks role assignments during deployment (in the absence of Bicep support (https://github.com/Azure/bicep/issues/11035)).
 1. Run `azd up` - This will provision Azure resources and deploy this sample to those resources, including building the search index based on the files found in the `./data` folder.
 1. After the application has been successfully deployed you will see a URL printed to the console.  Click that URL to interact with the application in your browser.  
 
@@ -80,15 +81,15 @@ It will look like the following:
 
 #### Running locally:
 1. Run `azd login`
-2. Change dir to `app`
-3. Run `./start.ps1` or `./start.sh` or run the "VS Code Task: Start App" to start the project locally.
+1. Change dir to `app`
+1. Run `./start.ps1` or `./start.sh` or run the "VS Code Task: Start App" to start the project locally.
 
 #### Sharing Environments
 
 Run the following if you want to give someone else access to completely deployed and existing environment.
 
 1. Install the [Azure CLI](https://learn.microsoft.com/cli/azure/install-azure-cli)
-1. Run `azd init -t admeGPT`
+1. Run `azd init -t https://github.com/EirikHaughom/admeGPT`
 1. Run `azd env refresh -e {environment name}` - Note that they will need the azd environment name, subscription Id, and location to run this command - you can find those values in your `./azure/{env name}/.env` file.  This will populate their azd environment's .env file with all the settings needed to run the app locally.
 1. Run `pwsh ./scripts/roles.ps1` - This will assign all of the necessary roles to the user so they can run the app locally.  If they do not have the necessary permission to create roles in the subscription, then you may need to run this script for them. Just be sure to set the `AZURE_PRINCIPAL_ID` environment variable in the azd .env file or in the active shell to their Azure Id, which they can get with `az account show`.
 

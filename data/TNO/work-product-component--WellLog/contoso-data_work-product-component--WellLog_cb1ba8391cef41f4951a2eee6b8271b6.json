@@ -1,0 +1,140 @@
+{
+  "data": {
+    "SpatialArea.QuantitativeAccuracyBandID": null,
+    "SpatialArea.SpatialParameterTypeID": null,
+    "ResourceCurationStatus": null,
+    "SpatialArea.SpatialGeometryTypeID": null,
+    "IsExtendedLoad": null,
+    "Name": "8881_d1205_1997_comp.las",
+    "Datasets": [
+      "contoso-data:dataset--File.Generic:d07e3e55-415f-49d6-86ef-bc3464ba636f:1678349542841322"
+    ],
+    "VerticalMeasurement.VerticalCRSID": null,
+    "ResourceSecurityClassification": "contoso-data:reference-data--ResourceSecurityClassification:RESTRICTED:",
+    "VerticalMeasurement.VerticalMeasurementPathID": null,
+    "ExistenceKind": null,
+    "HoleTypeLogging": null,
+    "LoggingDirection": null,
+    "VerticalMeasurementID": null,
+    "SpatialArea.QualitativeSpatialAccuracyTypeID": null,
+    "VerticalMeasurement.VerticalReferenceEntityID": null,
+    "SpatialPoint.SpatialGeometryTypeID": null,
+    "VerticalMeasurement.VerticalMeasurementSourceID": null,
+    "WellLogTypeID": null,
+    "IsDiscoverable": null,
+    "LoggingService": null,
+    "VerticalMeasurement.VerticalReferenceID": null,
+    "SubmitterName": null,
+    "LogRun": null,
+    "SpatialPoint.QualitativeSpatialAccuracyTypeID": null,
+    "LogActivity": null,
+    "Description": "Well Log",
+    "ResourceLifecycleStatus": null,
+    "TopMeasuredDepth": 62.2002,
+    "ServiceCompanyID": null,
+    "TechnicalAssuranceID": null,
+    "Source": null,
+    "LogVersion": null,
+    "VerticalMeasurement.VerticalMeasurementTypeID": null,
+    "LogSource": null,
+    "ToolStringDescription": null,
+    "SpatialPoint.CoordinateQualityCheckPerformedBy": null,
+    "DrillingFluidProperty": null,
+    "VerticalMeasurement.WellboreTVDTrajectoryID": null,
+    "VerticalMeasurement.VerticalMeasurementDescription": null,
+    "SpatialPoint.SpatialParameterTypeID": null,
+    "WellboreID": "contoso-data:master-data--Wellbore:8881:",
+    "ActivityType": null,
+    "VerticalMeasurement.VerticalMeasurementUnitOfMeasureID": null,
+    "SpatialPoint.QuantitativeAccuracyBandID": null,
+    "SpatialArea.CoordinateQualityCheckPerformedBy": null,
+    "ResourceHomeRegionID": null,
+    "BottomMeasuredDepth": 3072.9004,
+    "Curves": [
+      {
+        "IsProcessed": null,
+        "LogCurveMainFamilyID": null,
+        "LogCurveFamilyID": null,
+        "CurveID": null,
+        "TopDepth": 62.2002,
+        "CurveVersion": null,
+        "InterpreterName": null,
+        "CurveQuality": null,
+        "NullValue": null,
+        "Interpolate": null,
+        "DepthUnit": "contoso-data:reference-data--UnitOfMeasure:M:",
+        "DepthCoding": null,
+        "Mnemonic": "DEPT",
+        "BaseDepth": 3072.9004,
+        "LogCurveTypeID": null,
+        "LogCurveBusinessValueID": null,
+        "CurveUnit": "contoso-data:reference-data--UnitOfMeasure:M:"
+      },
+      {
+        "IsProcessed": null,
+        "LogCurveMainFamilyID": null,
+        "LogCurveFamilyID": null,
+        "CurveID": null,
+        "TopDepth": 62.4002,
+        "CurveVersion": null,
+        "InterpreterName": null,
+        "CurveQuality": null,
+        "NullValue": null,
+        "Interpolate": null,
+        "DepthUnit": "contoso-data:reference-data--UnitOfMeasure:M:",
+        "DepthCoding": null,
+        "Mnemonic": "GR",
+        "BaseDepth": 3072.9004,
+        "LogCurveTypeID": null,
+        "LogCurveBusinessValueID": null,
+        "CurveUnit": "contoso-data:reference-data--UnitOfMeasure:GAPI:"
+      },
+      {
+        "IsProcessed": null,
+        "LogCurveMainFamilyID": null,
+        "LogCurveFamilyID": null,
+        "CurveID": null,
+        "TopDepth": 599.6002,
+        "CurveVersion": null,
+        "InterpreterName": null,
+        "CurveQuality": null,
+        "NullValue": null,
+        "Interpolate": null,
+        "DepthUnit": "contoso-data:reference-data--UnitOfMeasure:M:",
+        "DepthCoding": null,
+        "Mnemonic": "DT",
+        "BaseDepth": 3072.9004,
+        "LogCurveTypeID": null,
+        "LogCurveBusinessValueID": null,
+        "CurveUnit": "contoso-data:reference-data--UnitOfMeasure:US%2FF:"
+      }
+    ]
+  },
+  "kind": "osdu:wks:work-product-component--WellLog:1.0.0",
+  "source": "wks",
+  "acl": {
+    "viewers": [
+      "data.default.viewers@contoso-data.dataservices.energy"
+    ],
+    "owners": [
+      "data.default.owners@contoso-data.dataservices.energy"
+    ]
+  },
+  "type": "work-product-component--WellLog",
+  "version": 1678354034189360,
+  "tags": null,
+  "createTime": "2023-03-09T09:27:14.198Z",
+  "authority": "osdu",
+  "namespace": "osdu:wks",
+  "legal": {
+    "legaltags": [
+      "contoso-data-open-test-data"
+    ],
+    "otherRelevantDataCountries": [
+      "US"
+    ],
+    "status": "compliant"
+  },
+  "createUser": "a9b01ec8-23d6-41c6-8773-89cf40351b9a",
+  "id": "contoso-data:work-product-component--WellLog:cb1ba8391cef41f4951a2eee6b8271b6"
+}
