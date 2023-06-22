@@ -72,7 +72,6 @@ Start-Process -FilePath $venvPythonPath -ArgumentList "-m pip install -r ./scrip
 Write-Host 'Running "dataprocessor.py"'
 $cwd = (Get-Location)
 $startArgs = ""
-$startArgs += "./scripts/dataprocessor.py "
 $startArgs += "$cwd/data/TNO/* "
 $startArgs += "--storageaccount $env:AZURE_STORAGE_ACCOUNT "
 $startArgs += "--container $env:AZURE_STORAGE_CONTAINER "
@@ -89,6 +88,6 @@ if ($env:SKIPINDEX -eq "TRUE") {
   $startArgs += "--skipindex"
 }
 
-Start-Process -FilePath $venvPythonPath -ArgumentList  $startArgs -Wait -NoNewWindow
+Start-Process -FilePath $venvPythonPath -ArgumentList ./scripts/dataprocessor.py $startArgs -Wait -NoNewWindow
 azd env set SKIPBLOBS "TRUE"
 azd env set SKIPINDEX "TRUE"

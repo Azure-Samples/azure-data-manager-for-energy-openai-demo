@@ -18,10 +18,26 @@ echo 'Installing dependencies from "requirements.txt" into virtual environment'
 ./scripts/.venv/bin/python -m pip install -r scripts/requirements.txt
 
 echo 'Running "dataprocessor.py"'
-if [ $SKIPBLOBS == 'TRUE' ]
-then
-    ./scripts/.venv/bin/python ./scripts/dataprocessor.py '$cwd/data/TNO/*' --storageaccount $AZURE_STORAGE_ACCOUNT --container $AZURE_STORAGE_CONTAINER --searchservice $AZURE_SEARCH_SERVICE --index $AZURE_SEARCH_INDEX --tenantid $AZURE_TENANT_ID --databricksworkspaceurl $AZURE_DATABRICKS_WORKSPACE --databricksworkspaceid $AZURE_DATABRICKS_WORKSPACE_ID --skipblobs -v
-else
-    ./scripts/.venv/bin/python ./scripts/dataprocessor.py '$cwd/data/TNO/*' --storageaccount $AZURE_STORAGE_ACCOUNT --container $AZURE_STORAGE_CONTAINER --searchservice $AZURE_SEARCH_SERVICE --index $AZURE_SEARCH_INDEX --tenantid $AZURE_TENANT_ID --databricksworkspaceurl $AZURE_DATABRICKS_WORKSPACE --databricksworkspaceid $AZURE_DATABRICKS_WORKSPACE_ID -v
+startArgs=""
+startArgs+="$cwd/data/TNO/* "
+startArgs+="--storageaccount $AZURE_STORAGE_ACCOUNT "
+startArgs+="--container $AZURE_STORAGE_CONTAINER "
+startArgs+="--searchservice $AZURE_SEARCH_SERVICE "
+startArgs+="--index $AZURE_SEARCH_INDEX "
+startArgs+="--tenantid $AZURE_TENANT_ID "
+startArgs+="--databricksworkspaceurl $AZURE_DATABRICKS_WORKSPACE_URL "
+startArgs+="--databricksworkspaceid $AZURE_DATABRICKS_WORKSPACE_ID "
+startArgs+="-v"
+
+if [ "$SKIPBLOBS" = "TRUE" ]; then
+  startArgs+=" --skipblobs"
 fi
+
+if [ "$SKIPINDEX" = "TRUE" ]; then
+  startArgs+=" --skipindex"
+fi
+
+./scripts/.venv/bin/python ./scripts/dataprocessor.py $startArgs
+
 azd env set SKIPBLOBS "TRUE"
+azd env set SKIPINDEX "TRUE"
