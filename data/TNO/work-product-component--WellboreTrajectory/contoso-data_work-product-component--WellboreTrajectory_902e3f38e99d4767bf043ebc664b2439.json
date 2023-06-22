@@ -1,0 +1,79 @@
+{
+  "data": {
+    "SurveyToolTypeID": null,
+    "SpatialArea.QuantitativeAccuracyBandID": null,
+    "Description": "Wellbore Trajectory",
+    "SurveyVersion": null,
+    "GeographicCRSID": null,
+    "ResourceLifecycleStatus": null,
+    "SpatialArea.SpatialParameterTypeID": null,
+    "ServiceCompanyID": null,
+    "ResourceCurationStatus": null,
+    "TechnicalAssuranceID": null,
+    "SpatialArea.SpatialGeometryTypeID": null,
+    "Source": null,
+    "IsExtendedLoad": null,
+    "Name": "3929.csv",
+    "Datasets": [
+      "contoso-data:dataset--File.Generic:b4269652-fc6b-4740-8fb4-bf5c24c4bb1f:1678349943516466"
+    ],
+    "VerticalMeasurement.VerticalCRSID": null,
+    "VerticalMeasurement.VerticalMeasurementTypeID": null,
+    "ActiveIndicator": null,
+    "AzimuthReferenceType": null,
+    "SpatialPoint.CoordinateQualityCheckPerformedBy": null,
+    "ResourceSecurityClassification": "contoso-data:reference-data--ResourceSecurityClassification:RESTRICTED:",
+    "VerticalMeasurement.WellboreTVDTrajectoryID": null,
+    "VerticalMeasurement.VerticalMeasurementPathID": null,
+    "ExistenceKind": null,
+    "VerticalMeasurement.VerticalMeasurementDescription": null,
+    "SpatialPoint.SpatialParameterTypeID": null,
+    "WellboreID": "contoso-data:master-data--Wellbore:3929:",
+    "VerticalMeasurement.VerticalMeasurementUnitOfMeasureID": null,
+    "SpatialPoint.QuantitativeAccuracyBandID": null,
+    "SpatialArea.QualitativeSpatialAccuracyTypeID": null,
+    "ProjectedCRSID": null,
+    "SpatialArea.CoordinateQualityCheckPerformedBy": null,
+    "SurveyReferenceIdentifier": null,
+    "VerticalMeasurement.VerticalReferenceEntityID": null,
+    "SpatialPoint.SpatialGeometryTypeID": null,
+    "ResourceHomeRegionID": null,
+    "SurveyType": null,
+    "TopDepthMeasuredDepth": 0.0,
+    "VerticalMeasurement.VerticalMeasurementSourceID": null,
+    "IsDiscoverable": null,
+    "VerticalMeasurement.VerticalReferenceID": null,
+    "SubmitterName": null,
+    "BaseDepthMeasuredDepth": 501.0,
+    "CalculationMethodType": null,
+    "AcquisitionRemark": null,
+    "SpatialPoint.QualitativeSpatialAccuracyTypeID": null
+  },
+  "kind": "osdu:wks:work-product-component--WellboreTrajectory:1.0.0",
+  "source": "wks",
+  "acl": {
+    "viewers": [
+      "data.default.viewers@contoso-data.dataservices.energy"
+    ],
+    "owners": [
+      "data.default.owners@contoso-data.dataservices.energy"
+    ]
+  },
+  "type": "work-product-component--WellboreTrajectory",
+  "version": 1678353431765709,
+  "tags": null,
+  "createTime": "2023-03-09T09:17:11.771Z",
+  "authority": "osdu",
+  "namespace": "osdu:wks",
+  "legal": {
+    "legaltags": [
+      "contoso-data-open-test-data"
+    ],
+    "otherRelevantDataCountries": [
+      "US"
+    ],
+    "status": "compliant"
+  },
+  "createUser": "a9b01ec8-23d6-41c6-8773-89cf40351b9a",
+  "id": "contoso-data:work-product-component--WellboreTrajectory:902e3f38e99d4767bf043ebc664b2439"
+}
