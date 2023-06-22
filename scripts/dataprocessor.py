@@ -264,9 +264,9 @@ if __name__ == '__main__':
         ]
     )
 
-    print(f"View the job at {w.config.host}/#job/{j.job_id}\n")
-
     r=w.jobs.run_now(
+        print(f"Running job {j.job_id}, this will take ~15 minutes to complete.\n")
+        print(f"View the job at {w.config.host}/#job/{j.job_id}\n")
         job_id=j.job_id
     )
 
