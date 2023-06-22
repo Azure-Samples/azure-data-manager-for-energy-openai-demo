@@ -13,12 +13,12 @@ param appServicePlanName string = ''
 param backendServiceName string = ''
 param resourceGroupName string = ''
 
-param searchServiceName string = 'gptkbindex'
+param searchServiceName string = ''
 param searchServiceResourceGroupName string = ''
 param searchServiceResourceGroupLocation string = location
 
 param searchServiceSkuName string = 'standard'
-param searchIndexName string = ''
+param searchIndexName string = 'gptkbindex'
 
 param storageAccountName string = ''
 param storageResourceGroupName string = ''
