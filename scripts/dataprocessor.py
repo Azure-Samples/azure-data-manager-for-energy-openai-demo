@@ -32,8 +32,8 @@ parser = argparse.ArgumentParser(
 )
 parser.add_argument("files", help="Files to be processed")
 parser.add_argument("--category", help="Value for the category field in the search index for all sections indexed in this run")
-parser.add_argument("--skipblobs", required=False, help="Optional. Skip uploading data to Azure Blob Storage")
-parser.add_argument("--skipindex", required=False, help="Optional. Skip populating the index using Databricks")
+parser.add_argument("--skipblobs", action="store_true", help="Skip uploading data to Azure Blob Storage")
+parser.add_argument("--skipindex", action="store_true", help="Optional. Skip populating the index using Databricks")
 parser.add_argument("--storageaccount", help="Azure Blob Storage account name")
 parser.add_argument("--container", help="Azure Blob Storage container name")
 parser.add_argument("--storagekey", required=False, help="Optional. Use this Azure Blob Storage account key instead of the current user identity to login (use az login to set current user for Azure)")
@@ -62,7 +62,7 @@ default_az_creds = az_credential if args.databrickskey == None else None
 search_creds = default_creds if args.searchkey == None else AzureKeyCredential(
     args.searchkey)
 
-if not args.skipindex:
+if (not args.skipindex == True):
     databricks_creds = default_az_creds.get_token(
         '2ff814a6-3304-4ab8-85cb-cd0e6f879c1d') if args.databrickskey == None else args.databrickskey
 if (not args.skipblobs == True):
@@ -85,9 +85,9 @@ def populate_index_with_databricks():
         c = w.clusters.create(
             cluster_name=args.databricksworkspaceid,
             spark_version='12.2.x-scala2.12',
-            node_type_id='Standard_D4ads_v5',
+            node_type_id='Standard_D8ads_v5',
             autotermination_minutes=30,
-            num_workers=10
+            num_workers=1
         )
 
         print(f"The databricks cluster is now ready at "
@@ -372,6 +372,6 @@ else:
             # page_map = get_document_text(filename)
             # sections = create_sections(os.path.basename(filename), page_map)
             # index_sections(os.path.basename(filename), sections)
-    
-    populate_index_with_databricks()
+    if (not args.skipindex == True): 
+        populate_index_with_databricks()
     

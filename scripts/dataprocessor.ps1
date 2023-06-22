@@ -71,11 +71,24 @@ Start-Process -FilePath $venvPythonPath -ArgumentList "-m pip install -r ./scrip
 
 Write-Host 'Running "dataprocessor.py"'
 $cwd = (Get-Location)
-if ($env:SKIPBLOBS -eq 'TRUE') {
-  Write-Host 'SKIPBLOBS=TRUE | Skipping blob uploads and processing.'
-  Start-Process -FilePath $venvPythonPath -ArgumentList "./scripts/dataprocessor.py $cwd/data/TNO/* --storageaccount $env:AZURE_STORAGE_ACCOUNT --container $env:AZURE_STORAGE_CONTAINER --searchservice $env:AZURE_SEARCH_SERVICE --index $env:AZURE_SEARCH_INDEX --tenantid $env:AZURE_TENANT_ID --databricksworkspaceurl $env:AZURE_DATABRICKS_WORKSPACE_URL --databricksworkspaceid $env:AZURE_DATABRICKS_WORKSPACE_ID --skipblobs -v" -Wait -NoNewWindow
+$startArgs = ""
+$startArgs += "./scripts/dataprocessor.py "
+$startArgs += "$cwd/data/TNO/* "
+$startArgs += "--storageaccount $env:AZURE_STORAGE_ACCOUNT "
+$startArgs += "--container $env:AZURE_STORAGE_CONTAINER "
+$startArgs += "--searchservice $env:AZURE_SEARCH_SERVICE "
+$startArgs += "--index $env:AZURE_SEARCH_INDEX "
+$startArgs += "--tenantid $env:AZURE_TENANT_ID "
+$startArgs += "--databricksworkspaceurl $env:AZURE_DATABRICKS_WORKSPACE_URL "
+$startArgs += "--databricksworkspaceid $env:AZURE_DATABRICKS_WORKSPACE_ID "
+$startArgs += "-v"
+if ($env:SKIPBLOBS -eq "TRUE") {
+  $startArgs += "--skipblobs"
 }
-else {
-  Start-Process -FilePath $venvPythonPath -ArgumentList "./scripts/dataprocessor.py $cwd/data/TNO/* --storageaccount $env:AZURE_STORAGE_ACCOUNT --container $env:AZURE_STORAGE_CONTAINER --searchservice $env:AZURE_SEARCH_SERVICE --index $env:AZURE_SEARCH_INDEX --tenantid $env:AZURE_TENANT_ID --databricksworkspaceurl $env:AZURE_DATABRICKS_WORKSPACE_URL --databricksworkspaceid $env:AZURE_DATABRICKS_WORKSPACE_ID -v" -Wait -NoNewWindow
+if ($env:SKIPINDEX -eq "TRUE") {
+  $startArgs += "--skipindex"
 }
-# azd env set SKIPBLOBS "TRUE"
+
+Start-Process -FilePath $venvPythonPath -ArgumentList  $startArgs -Wait -NoNewWindow
+azd env set SKIPBLOBS "TRUE"
+azd env set SKIPINDEX "TRUE"
