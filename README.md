@@ -2,9 +2,9 @@
 
 [![Open in Remote - Containers](https://img.shields.io/static/v1?style=for-the-badge&label=Remote%20-%20Containers&message=Open&color=blue&logo=visualstudiocode)](https://vscode.dev/redirect?url=vscode://ms-vscode-remote.remote-containers/cloneInVolume?url=https://github.com/EirikHaughom/admeGPT)
 
-This sample demonstrates a few approaches for creating ChatGPT-like experiences over your own data using the Retrieval Augmented Generation pattern. It uses Azure OpenAI Service to access the ChatGPT model (gpt-35-turbo), and Azure Cognitive Search for data indexing and retrieval.
+This sample demonstrates a few approaches for creating ChatGPT-like experiences on data from Azure Data Manager for Energy using the Retrieval Augmented Generation pattern. It uses Azure OpenAI Service to access the ChatGPT model (gpt-35-turbo), and Azure Cognitive Search for data indexing and retrieval.
 
-The repo includes sample data so it's ready to try end to end. In this sample application we use a fictitious company called Contoso Electronics, and the experience allows its employees to ask questions about the benefits, internal policies, as well as job descriptions and roles.
+The repo includes sample data so it's ready to try end to end. In this sample application we use a fictitious company called Contoso Energy, and the experience allows its employees to ask questions about their fields, wells, wellbores, logs, trajectories etc.
 
 ![RAG Architecture](docs/appcomponents.png)
 
@@ -21,7 +21,7 @@ The repo includes sample data so it's ready to try end to end. In this sample ap
 
 > **IMPORTANT:** In order to deploy and run this example, you'll need an **Azure subscription with access enabled for the Azure OpenAI service**. You can request access [here](https://aka.ms/oaiapply). You can also visit [here](https://azure.microsoft.com/free/cognitive-search/) to get some free Azure credits to get you started.
 
-> **AZURE RESOURCE COSTS** by default this sample will create Azure App Service and Azure Cognitive Search resources that have a monthly cost, as well as Form Recognizer resource that has cost per document page. You can switch them to free versions of each of them if you want to avoid this cost by changing the parameters file under the infra folder (though there are some limits to consider; for example, you can have up to 1 free Cognitive Search resource per subscription, and the free Form Recognizer resource only analyzes the first 2 pages of each document.)
+> **AZURE RESOURCE COSTS** by default this sample will create Azure App Service, Databricks and Azure Cognitive Search resources that have a monthly cost. You can switch them to free versions of each of them if you want to avoid this cost by changing the parameters file under the infra folder (though there are some limits to consider; for example, you can have up to 1 free Cognitive Search resource per subscription, and the free Form Recognizer resource only analyzes the first 2 pages of each document.)
 
 ### Prerequisites
 
@@ -37,9 +37,9 @@ The repo includes sample data so it's ready to try end to end. In this sample ap
 
 >NOTE: Your Azure Account must have `Microsoft.Authorization/roleAssignments/write` permissions, such as [User Access Administrator](https://learn.microsoft.com/azure/role-based-access-control/built-in-roles#user-access-administrator) or [Owner](https://learn.microsoft.com/azure/role-based-access-control/built-in-roles#owner).  
 
-#### To Run in GitHub Codespaces or VS Code Remote Containers
+#### To Run in VS Code Remote Containers
 
-You can run this repo virtually by using GitHub Codespaces or VS Code Remote Containers.  Click on one of the buttons below to open this repo in one of those options.
+You can run this repo virtually by using VS Code Remote Containers.  Click on the button below to open this repo in one .
 
 [![Open in Remote - Containers](https://img.shields.io/static/v1?style=for-the-badge&label=Remote%20-%20Containers&message=Open&color=blue&logo=visualstudiocode)](https://vscode.dev/redirect?url=vscode://ms-vscode-remote.remote-containers/cloneInVolume?url=https://github.com/EirikHaughom/admeGPT)
 
@@ -106,11 +106,12 @@ Once in the web app:
 ## Resources
 
 * [Revolutionize your Enterprise Data with ChatGPT: Next-gen Apps w/ Azure OpenAI and Cognitive Search](https://aka.ms/entgptsearchblog)
+* [Azure Data Manager for Energy](https://aka.ms/azuredatamanagerforenergy)
 * [Azure Cognitive Search](https://learn.microsoft.com/azure/search/search-what-is-azure-search)
 * [Azure OpenAI Service](https://learn.microsoft.com/azure/cognitive-services/openai/overview)
 
 ### Note
->Note: The PDF documents used in this demo contain information generated using a language model (Azure OpenAI Service). The information contained in these documents is only for demonstration purposes and does not reflect the opinions or beliefs of Microsoft. Microsoft makes no representations or warranties of any kind, express or implied, about the completeness, accuracy, reliability, suitability or availability with respect to the information contained in this document. All rights reserved to Microsoft.
+>Note: The information contained in the sample documents is only for demonstration purposes and does not reflect the opinions or beliefs of Microsoft. Microsoft makes no representations or warranties of any kind, express or implied, about the completeness, accuracy, reliability, suitability or availability with respect to the information contained in this document. All rights reserved to Microsoft.
 
 ### FAQ
 
@@ -126,9 +127,17 @@ Once in the web app:
 - Work Product Component: WellLog
 - Work Product Component: WellboreTrajectory
 
+---
+
 ***Question***: Why do we need to break up the JSON documents into chunks when Azure Cognitive Search supports searching large documents?
 
 ***Answer***: Chunking allows us to limit the amount of information we send to OpenAI due to token limits. By breaking up the content, it allows us to easily find potential chunks of text that we can inject into OpenAI. The method of chunking we use leverages a sliding window of text such that sentences that end one chunk will start the next. This allows us to reduce the chance of losing the context of the text.
+
+---
+
+***Question***: Why can I not retrieve aggregated summaries from the data?
+
+***Answer***: There's only a certain amount of data that can be retrieved and provided to the AI model due to token limitations. Therefore, the AI cannot consume all the JSON documents and aggregate across. For this use-case you would need to parse the documents to a table structure or similar. The LLM can then create the necessary programmatic queries (i.e. SQL, KQL) and retrieve the aggregated data from the table source directly.
 
 ### Troubleshooting
 
