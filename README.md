@@ -116,7 +116,7 @@ Once in the web app:
 
 ***Question***: Which data are you using?
 
-***Answer***: In this demo we are using the open-source TNO dataset, available in the [OSDU Forum GitLab](https://community.opengroup.org/osdu/platform/data-flow/data-loading/open-test-data/-/tree/master/rc--3.0.0/1-data/3-provided/TNO). Specifically we are using the master data and work product components (WPC):
+***Answer***: In this demo we are using the open-source TNO dataset, available in the [OSDU Forum GitLab](https://community.opengroup.org/osdu/platform/data-flow/data-loading/open-test-data/-/tree/master/rc--3.0.0/1-data/3-provided/TNO). Specifically we are using the indexed versions of the master data and work product components (WPC):
 - Master Data: Field
 - Master Data: GeoPoliticalEntity
 - Master Data: Organisation
