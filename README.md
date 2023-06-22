@@ -114,7 +114,19 @@ Once in the web app:
 
 ### FAQ
 
-***Question***: Why do we need to break up the PDFs into chunks when Azure Cognitive Search supports searching large documents?
+***Question***: Which data are you using?
+
+***Answer***: In this demo we are using the open-source TNO dataset, available in the [OSDU Forum GitLab](https://community.opengroup.org/osdu/platform/data-flow/data-loading/open-test-data/-/tree/master/rc--3.0.0/1-data/3-provided/TNO). Specifically we are using the master data and work product components (WPC):
+- Master Data: Field
+- Master Data: GeoPoliticalEntity
+- Master Data: Organisation
+- Master Data: Well
+- Master Data: Wellbore
+- Work Product Component: WellboreMarkerSet
+- Work Product Component: WellLog
+- Work Product Component: WellboreTrajectory
+
+***Question***: Why do we need to break up the JSON documents into chunks when Azure Cognitive Search supports searching large documents?
 
 ***Answer***: Chunking allows us to limit the amount of information we send to OpenAI due to token limits. By breaking up the content, it allows us to easily find potential chunks of text that we can inject into OpenAI. The method of chunking we use leverages a sliding window of text such that sentences that end one chunk will start the next. This allows us to reduce the chance of losing the context of the text.
 
