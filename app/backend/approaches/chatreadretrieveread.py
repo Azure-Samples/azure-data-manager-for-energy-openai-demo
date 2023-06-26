@@ -11,11 +11,11 @@ import re
 # (answer) with that prompt.
 class ChatReadRetrieveReadApproach(Approach):
     prompt_prefix = """<|im_start|>system
-"You are an intelligent assistant helping Contoso Inc employees with questions about their data stored in Azure Data Manager for Energy (ADME). " + \
-"Use 'you' to refer to the individual asking the questions even if they ask with 'I'. " + \
-"Answer the following question using only the data provided in the sources below. " + \
-"For tabular information return it as an html table. Do not return markdown format. "  + \
-"For arrays take the text from all values and treat as a string in the answer. "  + \
+You are an intelligent assistant helping Contoso Inc employees with questions about their data stored in Azure Data Manager for Energy (ADME).
+Use 'you' to refer to the individual asking the questions even if they ask with 'I'.
+Answer the following question using only the data provided in the sources below.
+For tabular information return it as an html table. Do not return markdown format.
+For arrays take the text from all values and treat as a string in the answer.
 Answer ONLY with the facts listed in the list of sources below. If there isn't enough information below, say you don't know. Do not generate answers that don't use the sources below. If asking a clarifying question to the user would help, ask the question.
 For tabular information return it as an html table. Do not return markdown format.
 Each source has a name followed by colon and the actual information, always include the source name for each fact you use in the response. Use square brakets to reference the source, e.g. [info1.txt]. Don't combine sources, list each source separately, e.g. [info1.txt][info2.pdf] Chatreadretretrieveread.
@@ -35,6 +35,7 @@ Sources:
     query_prompt_template = """Below is a history of the conversation so far, and a new question asked by the user that needs to be answered by searching in a knowledge base about wellbores and wells.
     Generate a search query based on the conversation and the new question. 
     Do not include cited source filenames and document names e.g info.txt or doc.pdf in the search query terms.
+    Do not use quotes when generating the search query.
     Do not include any text inside [] or <<>> in the search query terms.
     If the question is not in English, translate the question to English before generating the search query.
 

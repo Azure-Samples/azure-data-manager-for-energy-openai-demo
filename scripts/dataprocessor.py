@@ -182,7 +182,8 @@ def extract_id_and_content(blob_content):
     data = json.loads(blob_content)
     id = data.get("id")
     content = json.dumps(data).replace('"', "'")
-    return id, content
+    kind = data.get("kind")
+    return id, content, kind
 
 
 def extract_id(blob_content):
@@ -201,18 +202,22 @@ def process_blob(blob_name):
     # Download the blob's content
     blob_content = blob_client.download_blob().readall()
     blob_name = blob_client.blob_name
-    id, content = extract_id_and_content(blob_content)
-    id = base64.urlsafe_b64encode(id.encode()).decode()
+    id, content, kind = extract_id_and_content(blob_content)
+    id_encoded = base64.urlsafe_b64encode(id.encode()).decode()
+    category_split = kind.split(':')
+    category_split2 = category_split[-2].split('--')
+    category = category_split2[-1]
     #print('id: ' + id)
     output_fields = []
     result_split = split_json(json.dumps(json.loads(blob_content)), chunk_size)
     for i, chunk in enumerate(result_split):
         document = '''+'''{
             "id": str(id),
-            "content": chunk,
-            "keyfield": encode_id(id) + "-" + str(i),
+            "content": str(id) + " : " +chunk,
+            "kind": kind,
+            "keyfield": str(id_encoded),
             "sourcefile": blob_name,
-            "category": "",
+            "category": category,
             "sourcepage": blob_name + "-" + str(i)
         }
         output_fields.append(document)
@@ -334,6 +339,7 @@ def create_search_index():
             fields=[
                 SimpleField(name="id", type="Edm.String", filterable=True, facetable=True),
                 SearchableField(name="content", type="Edm.String", analyzer_name="en.microsoft"),
+                SimpleField(name="kind", type="Edm.String", filterable=True, facetable=True),
                 SimpleField(name="category", type="Edm.String", filterable=True, facetable=True),
                 SimpleField(name="sourcepage", type="Edm.String", filterable=True, facetable=True),
                 SimpleField(name="sourcefile", type="Edm.String", filterable=True, facetable=True),
