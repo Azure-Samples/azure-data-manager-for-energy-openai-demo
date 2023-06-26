@@ -215,7 +215,7 @@ def process_blob(blob_name):
             "id": str(id),
             "content": "ID " + str(id) + ", " + chunk,
             "kind": kind,
-            "keyfield": encode_id(id)+"-"+str(i),
+            "keyfield": encode_id(id_encoded)+"-"+str(i),
             "sourcefile": blob_name,
             "category": category,
             "sourcepage": blob_name + "-" + str(i)
