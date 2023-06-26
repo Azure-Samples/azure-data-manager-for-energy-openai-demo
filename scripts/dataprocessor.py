@@ -265,10 +265,10 @@ if __name__ == '__main__':
     )
 
     r=w.jobs.run_now(
-        print(f"Running job {j.job_id}, this will take ~15 minutes to complete.\n"),
-        print(f"View the job at {w.config.host}/#job/{j.job_id}\n"),
         job_id=j.job_id
     )
+    print(f"Running job {j.job_id}. It will take about 15 minutes to complete the indexing.\n")
+    print(f"View the job at {w.config.host}/#job/{j.job_id}\n"),
 
 def blob_name_from_file_page(filename, page = 0):
     if os.path.splitext(filename)[1].lower() == ".pdf":
@@ -369,9 +369,13 @@ else:
         else:
             if (not args.skipblobs == True):
                 upload_blobs(filename)
+            else:
+                print('SKIPBLOBS = TRUE | Skipping upload of files from ./data')
             # page_map = get_document_text(filename)
             # sections = create_sections(os.path.basename(filename), page_map)
             # index_sections(os.path.basename(filename), sections)
     if (not args.skipindex == True): 
         populate_index_with_databricks()
+    else:
+        print('SKIPINDEX = TRUE | Skipping indexing')
     

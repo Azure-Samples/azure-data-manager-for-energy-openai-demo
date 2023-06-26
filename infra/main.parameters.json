@@ -33,7 +33,7 @@
       "value": "${AZURE_SEARCH_SERVICE}"
     },
     "searchIndexName": {
-      "value": "${AZURE_SEARCH_INDEX}"
+      "value": "gptkbindex"
     },
     "searchServiceResourceGroupName": {
       "value": "${AZURE_SEARCH_SERVICE_RESOURCE_GROUP}"
@@ -51,7 +51,7 @@
       "value": "${AZURE_DATABRICKS_WORKSPACE}"
     },
     "databricksWorkspaceSkuName": {
-      "value": "trial"
+      "value": "standard"
     },
     "databricksResourceGroupName": {
       "value": "${AZURE_DATABRICKS_RESOURCE_GROUP}"

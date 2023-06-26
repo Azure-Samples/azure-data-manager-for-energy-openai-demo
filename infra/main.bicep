@@ -26,7 +26,7 @@ param storageResourceGroupLocation string = location
 param storageContainerName string = 'content'
 
 param databricksWorkspaceName string = ''
-param databricksWorkspaceSkuName string = 'trial'
+param databricksWorkspaceSkuName string = 'standard'
 param databricksResourceGroupName string = ''
 param databricksManagedResourceGroupName string = ''
 param databricksResourceGroupLocation string = location
