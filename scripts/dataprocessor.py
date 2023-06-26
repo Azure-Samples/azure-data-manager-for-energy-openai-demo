@@ -213,9 +213,9 @@ def process_blob(blob_name):
     for i, chunk in enumerate(result_split):
         document = '''+'''{
             "id": str(id),
-            "content": str(id) + " : " +chunk,
+            "content": "ID " + str(id) + ", " + chunk,
             "kind": kind,
-            "keyfield": str(id_encoded),
+            "keyfield": encode_id(id)+"-"+str(i),
             "sourcefile": blob_name,
             "category": category,
             "sourcepage": blob_name + "-" + str(i)
