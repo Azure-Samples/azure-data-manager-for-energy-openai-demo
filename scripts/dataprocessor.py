@@ -87,7 +87,7 @@ def populate_index_with_databricks():
             spark_version='12.2.x-scala2.12',
             node_type_id='Standard_D8ads_v5',
             autotermination_minutes=30,
-            num_workers=1
+            num_workers=2
         )
 
         print(f"The databricks cluster is now ready at "
