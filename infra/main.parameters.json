@@ -55,6 +55,9 @@
     },
     "databricksResourceGroupName": {
       "value": "${AZURE_DATABRICKS_RESOURCE_GROUP}"
+    },
+    "databricksManagedResourceGroupName": {
+      "value": "${AZURE_DATABRICKS_MANAGED_RESOURCE_GROUP}"
     }
   }
 }
