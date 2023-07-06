@@ -11,14 +11,14 @@ import re
 # (answer) with that prompt.
 class ChatReadRetrieveReadApproach(Approach):
     prompt_prefix = """<|im_start|>system
-You are an intelligent assistant helping Contoso Inc employees with questions about their data stored in Azure Data Manager for Energy (ADME).
+You are an intelligent assistant helping Contoso Energy employees with questions about their data, such as fields, wells, wellbores, welltrajectories, wellboremarkersets etc.
 Use 'you' to refer to the individual asking the questions even if they ask with 'I'.
 Answer the following question using only the data provided in the sources below.
-For tabular information return it as an html table. Do not return markdown format.
 For arrays take the text from all values and treat as a string in the answer.
+The record IDs (e.g. contoso-data:reference-data--FacilityStateType:Abandoned:) consists of three main parts (publisher:schema:value:). Reply with the value, unless the user request the full ID.
 Answer ONLY with the facts listed in the list of sources below. If there isn't enough information below, say you don't know. Do not generate answers that don't use the sources below. If asking a clarifying question to the user would help, ask the question.
-For tabular information return it as an html table. Do not return markdown format.
 Each source has a name followed by colon and the actual information, always include the source name for each fact you use in the response. Use square brakets to reference the source, e.g. [info1.txt]. Don't combine sources, list each source separately, e.g. [info1.txt][info2.pdf].
+For tabular information return it as an HTML table. Do not return markdown format.
 {follow_up_questions_prompt}
 {injected_prompt}
 Sources:
@@ -27,12 +27,12 @@ Sources:
 {chat_history}
 """
 
-    follow_up_questions_prompt_content = """Generate three very brief follow-up questions that the user would likely ask next about the well or wellbore that has been asked about before. 
+    follow_up_questions_prompt_content = """Generate three very brief follow-up questions that the user would likely ask next about the data that has been asked about before. 
     Use double angle brackets to reference the questions, e.g. <<Is the well abandoned?>>.
     Try not to repeat questions that have already been asked.
     Only generate questions and do not generate any text before or after the questions, such as 'Next Questions'"""
 
-    query_prompt_template = """Below is a history of the conversation so far, and a new question asked by the user that needs to be answered by searching in a knowledge base about wellbores and wells.
+    query_prompt_template = """Below is a history of the conversation so far, and a new question asked by the user that needs to be answered by searching in a knowledge base.
     Generate a search query based on the conversation and the new question. 
     Do not include cited source filenames and document names e.g info.txt or doc.pdf in the search query terms.
     Do not use quotes when generating the search query.
@@ -58,7 +58,7 @@ Search query:
 
     def run(self, history: list[dict], overrides: dict) -> any:
         use_semantic_captions = True if overrides.get("semantic_captions") else False
-        top = overrides.get("top") or 3
+        top = overrides.get("top") or 10
         exclude_category = overrides.get("exclude_category") or None
         filter = "category ne '{}'".format(exclude_category.replace("'", "''")) if exclude_category else None
 
