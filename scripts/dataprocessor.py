@@ -111,7 +111,10 @@ def populate_index_with_databricks():
     task_key = "run_job"
 
     print("Attempting to create the job. Please wait...\n")
-    base_parameters = { "endpoint": f"https://{args.searchservice}.search.windows.net" }
+    base_parameters = { "endpoint": f"https://{args.searchservice}.search.windows.net", 
+                        "index_name": f"{args.index}",
+                        "connection_string": f"https://{args.storageaccount}.blob.core.windows.net",
+                        "container_name": f"{args.container}" }
     j=w.jobs.create(
         job_name = job_name,
         tasks = [

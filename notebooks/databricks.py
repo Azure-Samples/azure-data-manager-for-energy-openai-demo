@@ -39,9 +39,11 @@ from azure.identity import DefaultAzureCredential
 
 # Get the service endpoint and API key from the environment
 endpoint = dbutils.widgets.get("endpoint")
-index_name = "{args.index}"
-connection_string = "https://{args.storageaccount}.blob.core.windows.net"
-container_name = "{args.container}"
+index_name = dbutils.widgets.get("index_name")
+connection_string = dbutils.widgets.get("connection_string")
+container_name = dbutils.widgets.get("container_name")
+
+print(endpoint)
 
 default_creds = DefaultAzureCredential()
 
@@ -70,14 +72,11 @@ else:
 downloaded_blob = source_blob_client.download_blob()
 zip_data = downloaded_blob.content_as_bytes()
 
-# Destination Blob container
-destination_container_name = "{args.container}"
-
 # Function to extract data
 def extract_and_upload(file_info):
     extracted_data = zip_ref.read(file_info.filename)
     destination_blob_name = file_info.filename
-    destination_blob_client = blob_service_client.get_blob_client(container=destination_container_name, blob=destination_blob_name)
+    destination_blob_client = blob_service_client.get_blob_client(container=container_name, blob=destination_blob_name)
     destination_blob_client.upload_blob(extracted_data, overwrite=True)
 
 # Extract the zip file in memory
@@ -155,7 +154,7 @@ def process_blob(blob_name):
     output_fields = []
     result_split = split_json(json.dumps(json.loads(blob_content)), chunk_size)
     for i, chunk in enumerate(result_split):
-        document = '''+'''{
+        document = {
             "id": str(id),
             "content": "ID " + str(id) + ", " + chunk,
             "kind": kind,
