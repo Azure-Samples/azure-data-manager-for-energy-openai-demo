@@ -15,11 +15,9 @@ from azure.search.documents.indexes import SearchIndexClient
 from azure.search.documents.indexes.models import *
 from azure.search.documents import SearchClient
 from azure.ai.formrecognizer import DocumentAnalysisClient
-from databricks.connect import DatabricksSession
 from databricks.sdk import WorkspaceClient
 from databricks.sdk.service import workspace
 from databricks.sdk.service.jobs import JobTaskSettings, NotebookTask, NotebookTaskSource
-from azure.mgmt.msi import ManagedServiceIdentityClient
 
 
 # MAX_SECTION_LENGTH = 1000
