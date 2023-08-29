@@ -43,8 +43,8 @@ param openAiSkuName string = 'S0'
 
 // param formRecognizerSkuName string = 'S0'
 
-param gptDeploymentName string = 'davinci'
-param gptModelName string = 'text-davinci-003'
+param gptDeploymentName string = 'gpt-las'
+param gptModelName string = 'gpt-35-turbo'
 param chatGptDeploymentName string = 'gpt-las'
 param chatGptModelName string = 'gpt-35-turbo'
 
@@ -138,17 +138,6 @@ module openAi 'core/ai/cognitiveservices.bicep' = {
       name: openAiSkuName
     }
     deployments: [
-      {
-        name: gptDeploymentName
-        model: {
-          format: 'OpenAI'
-          name: gptModelName
-          version: '1'
-        }
-        scaleSettings: {
-          scaleType: 'Standard'
-        }
-      }
       {
         name: chatGptDeploymentName
         model: {
@@ -370,6 +359,8 @@ output AZURE_OPENAI_SERVICE string = openAi.outputs.name
 output AZURE_OPENAI_RESOURCE_GROUP string = openAiResourceGroup.name
 output AZURE_OPENAI_GPT_DEPLOYMENT string = gptDeploymentName
 output AZURE_OPENAI_CHATGPT_DEPLOYMENT string = chatGptDeploymentName
+output AZURE_OPENAI_API_VERSION string = '2022-12-01' 
+output AZURE_OPENAI_ENDPOINT string = 'https://joasozeai.openai.azure.com'
 
 // output AZURE_FORMRECOGNIZER_SERVICE string = formRecognizer.outputs.name
 // output AZURE_FORMRECOGNIZER_RESOURCE_GROUP string = formRecognizerResourceGroup.name
@@ -377,6 +368,7 @@ output AZURE_OPENAI_CHATGPT_DEPLOYMENT string = chatGptDeploymentName
 output AZURE_SEARCH_INDEX string = searchIndexName
 output AZURE_SEARCH_SERVICE string = searchService.outputs.name
 output AZURE_SEARCH_SERVICE_RESOURCE_GROUP string = searchServiceResourceGroup.name
+
 
 output AZURE_STORAGE_ACCOUNT string = storage.outputs.name
 output AZURE_STORAGE_CONTAINER string = storageContainerName

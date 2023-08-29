@@ -40,6 +40,12 @@ if ($LASTEXITCODE -ne 0) {
     Write-Host "Failed to restore backend python packages"
     exit $LASTEXITCODE
 }
+#For private preveiw - need this exact package:
+Start-Process -FilePath $venvPythonPath -ArgumentList "-m pip install --index-url=https://pkgs.dev.azure.com/azure-sdk/public/_packaging/azure-sdk-for-python/pypi/simple/ azure-search-documents==11.4.0a20230509004" -Wait -NoNewWindow
+if ($LASTEXITCODE -ne 0) {
+    Write-Host "Failed to restore backend python package azure-search-documents==11.4.0a20230509004"
+    exit $LASTEXITCODE
+}
 
 Write-Host ""
 Write-Host "Restoring frontend npm packages"

@@ -12,28 +12,13 @@ from azure.identity import AzureDeveloperCliCredential, AzureCliCredential
 from azure.core.credentials import AzureKeyCredential
 from azure.storage.blob import BlobServiceClient
 from azure.search.documents.indexes import SearchIndexClient
-#from azure.search.documents.indexes.models import *
-from azure.search.documents.indexes.models import (  
-    SearchIndex,
-    CorsOptions,  
-    SearchField,  
-    SearchFieldDataType,  
-    SimpleField,  
-    SearchableField,  
-    SearchIndex,  
-    SemanticConfiguration,  
-    PrioritizedFields,  
-    SemanticField,  
-    SearchField,  
-    SemanticSettings,  
-    VectorSearch,  
-    VectorSearchAlgorithmConfiguration,  
-) 
+from azure.search.documents.indexes.models import *
+from azure.search.documents import SearchClient
 from azure.ai.formrecognizer import DocumentAnalysisClient
 from databricks.connect import DatabricksSession
 from databricks.sdk import WorkspaceClient
 from databricks.sdk.service import workspace
-from databricks.sdk.service.jobs import Task, NotebookTask, Source
+from databricks.sdk.service.jobs import JobTaskSettings, NotebookTask, NotebookTaskSource
 from azure.mgmt.msi import ManagedServiceIdentityClient
 
 
@@ -125,7 +110,6 @@ def populate_index_with_databricks():
 %pip install --index-url=https://pkgs.dev.azure.com/azure-sdk/public/_packaging/azure-sdk-for-python/pypi/simple/ azure-search-documents==11.4.0a20230509004
 %pip install azure-storage-blob==12.14.1
 %pip install azure-identity==1.13.0b4
-%pip install openai
 
 # COMMAND ----------
 # Import required modules
@@ -135,20 +119,13 @@ import base64
 from azure.core.credentials import AzureKeyCredential
 from azure.search.documents import SearchClient
 from azure.search.documents.indexes.models import (
-    SearchIndex,  
-    SearchField,
-    CorsOptions,  
-    SearchFieldDataType,  
-    SimpleField,  
-    SearchableField,  
-    SearchIndex,  
-    SemanticConfiguration,  
-    PrioritizedFields,  
-    SemanticField,  
-    SearchField,  
-    SemanticSettings,  
-    VectorSearch,  
-    VectorSearchAlgorithmConfiguration, 
+    ComplexField,
+    CorsOptions,
+    SearchIndex,
+    ScoringProfile,
+    SearchFieldDataType,
+    SimpleField,
+    SearchableField
 )
 import json
 from azure.storage.blob import BlobServiceClient
@@ -232,7 +209,7 @@ def extract_id(blob_content):
 def encode_id(id_value):
     return id_value.replace(":", "_")
 
-def generate_embeddings(text):
+ def generate_embeddings(text):
     response = openai.Embedding.create(input=text, engine="embedding-ada")
     embeddings = response['data'][0]['embedding']
     return embeddings   
@@ -259,7 +236,7 @@ def process_blob(blob_name):
             "keyfield": encode_id(id_encoded)+"-"+str(i),
             "sourcefile": blob_name,
             "category": category,
-            "sourcepage": blob_name + "-" + str(i),
+            "sourcepage": blob_name + "-" + str(i)
             "contentVector": generate_embeddings(chunk)
         }
         output_fields.append(document)
@@ -295,20 +272,20 @@ if __name__ == '__main__':
 
     print("Attempting to create the job. Please wait...\n")
     base_parameters = { "": "" }
-    j = w.jobs.create(
-    job_name = job_name,
-    tasks = [
-        Task(
-        description = description,
-        existing_cluster_id = clusterid,
-        notebook_task = NotebookTask(
-            base_parameters = base_parameters,
-            notebook_path = notebook_path,
-            source = Source("WORKSPACE")
-        ),
-        task_key = task_key
-        )
-    ]
+    j=w.jobs.create(
+        job_name = job_name,
+        tasks = [
+            JobTaskSettings(
+            description = description,
+            existing_cluster_id = clusterid,
+            notebook_task = NotebookTask(
+                base_parameters = base_parameters,
+                notebook_path = notebook_path,
+                source = NotebookTaskSource("WORKSPACE")
+            ),
+            task_key = task_key
+            )
+        ]
     )
 
     r=w.jobs.run_now(
@@ -411,8 +388,6 @@ def create_search_index():
     simple_field = SearchableField(name="content", type=SearchFieldDataType.String, key=False)
     fields.append(simple_field)
     simple_field = SimpleField(name="category", type=SearchFieldDataType.String, key=False, facetable=True, filterable=True)
-    fields.append(simple_field)
-    simple_field = SimpleField(name="kind", type=SearchFieldDataType.String, key=False, facetable=True, filterable=True)
     fields.append(simple_field)
     simple_field = SimpleField(name="sourcepage", type=SearchFieldDataType.String, key=False, facetable=True, filterable=True)
     fields.append(simple_field)

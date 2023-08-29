@@ -16,10 +16,12 @@ python -m venv scripts/.venv
 
 echo 'Installing dependencies from "requirements.txt" into virtual environment'
 ./scripts/.venv/bin/python -m pip install -r scripts/requirements.txt
+./scripts/.venv/bin/python -m pip install --index-url=https://pkgs.dev.azure.com/azure-sdk/public/_packaging/azure-sdk-for-python/pypi/simple/ azure-search-documents==11.4.0a20230509004
 
 databricksIdentity=$(az identity show --name dbmanagedidentity --resource-group $AZURE_DATABRICKS_MANAGED_RESOURCE_GROUP | jq -r '.principalId')
 searchroles="5e0bd9bd-7b93-4f28-af87-19fc36ad61bd 1407120a-92aa-4202-b7e9-c0e197c71c8f 8ebe5a00-799e-43f5-93ac-243d3dce84a7"
 storageroles="2a2b9908-6ea1-4ae2-8e65-a410df84e7d1 ba92f5b4-2d11-453d-a403-e96b0029c9fe"
+openairoles="5e0bd9bd-7b93-4f28-af87-19fc36ad61bd"
 
 echo "Running Databricks role assignments"
 
@@ -43,6 +45,15 @@ do
   echo "Added Databricks Identity ($databricksIdentity) added to role $roleassignment on $AZURE_STORAGE_RESOURCE_GROUP"
 done
 
+for role in $openairoles
+do
+  roleassignment=$(az role assignment create \
+    --role "$role" \
+    --assignee-object-id "$databricksIdentity" \
+    --scope "/subscriptions/$AZURE_SUBSCRIPTION_ID/resourceGroups/$AZURE_OPENAI_RESOURCE_GROUP" \
+    --assignee-principal-type ServicePrincipal | jq -r '.roleDefinitionName')
+  echo "Added Databricks Identity ($databricksIdentity) added to role $roleassignment on $AZURE_OPENAI_RESOURCE_GROUP"
+done
 
 echo 'Running "dataprocessor.py"'
 
@@ -54,7 +65,7 @@ if [ "$SKIPINDEX" = "TRUE" ]; then
   skipindex="--skipindex"
 fi
 
-./scripts/.venv/bin/python ./scripts/dataprocessor.py './data/TNO/*' --storageaccount "$AZURE_STORAGE_ACCOUNT" --container "$AZURE_STORAGE_CONTAINER" --searchservice "$AZURE_SEARCH_SERVICE" --index "$AZURE_SEARCH_INDEX" --tenantid "$AZURE_TENANT_ID" --databricksworkspaceurl "$AZURE_DATABRICKS_WORKSPACE_URL" --databricksworkspaceid "$AZURE_DATABRICKS_WORKSPACE_ID" -v $skipblobs $skipindex
+./scripts/.venv/bin/python ./scripts/dataprocessor.py './data/TNO/*' --storageaccount "$AZURE_STORAGE_ACCOUNT" --container "$AZURE_STORAGE_CONTAINER" --searchservice "$AZURE_SEARCH_SERVICE" --index "$AZURE_SEARCH_INDEX" --tenantid "$AZURE_TENANT_ID" --databricksworkspaceurl "$AZURE_DATABRICKS_WORKSPACE_URL" --databricksworkspaceid "$AZURE_DATABRICKS_WORKSPACE_ID" --openaiendpoint "$AZURE_OPENAI_ENDPOINT" --azureopenaiapiversion "$AZURE_OPENAI_API_VERSION" -v $skipblobs $skipindex
 
 
 

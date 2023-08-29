@@ -44,6 +44,10 @@ $storageroles = @(
   "ba92f5b4-2d11-453d-a403-e96b0029c9fe"
 )
 
+$openairoles = @(
+  "5e0bd9bd-7b93-4f28-af87-19fc36ad61bd"  
+)
+
 Write-Host 'Running Databricks role assignments'
 
 foreach ($role in $searchroles) {
@@ -66,8 +70,20 @@ foreach ($role in $storageroles) {
   Write-Host "Added Databricks Identity ($databricksIdentityId) added to role $roleassignmentname on $env:AZURE_STORAGE_RESOURCE_GROUP"
 }
 
+foreach ($role in $openairoles) {
+  $roleassignment = az role assignment create `
+      --role $role `
+      --assignee-object-id $databricksIdentityId `
+      --scope /subscriptions/$env:AZURE_SUBSCRIPTION_ID/resourceGroups/$env:AZURE_OPENAI_RESOURCE_GROUP `
+      --assignee-principal-type ServicePrincipal | ConvertFrom-Json
+      $roleassignmentname = $roleassignment.roleDefinitionName
+  Write-Host "Added Databricks Identity ($databricksIdentityId) added to role $roleassignmentname on $env:AZURE_OPENAI_RESOURCE_GROUP"
+}
+
 Write-Host 'Installing dependencies from "requirements.txt" into virtual environment'
 Start-Process -FilePath $venvPythonPath -ArgumentList "-m pip install -r ./scripts/requirements.txt" -Wait -NoNewWindow
+#For private preveiw - need this exact package:
+Start-Process -FilePath $venvPythonPath -ArgumentList "-m pip install --index-url=https://pkgs.dev.azure.com/azure-sdk/public/_packaging/azure-sdk-for-python/pypi/simple/ azure-search-documents==11.4.0a20230509004" -Wait -NoNewWindow
 
 Write-Host 'Running "dataprocessor.py"'
 $cwd = (Get-Location)
@@ -80,6 +96,8 @@ $startArgs += "--index $env:AZURE_SEARCH_INDEX "
 $startArgs += "--tenantid $env:AZURE_TENANT_ID "
 $startArgs += "--databricksworkspaceurl $env:AZURE_DATABRICKS_WORKSPACE_URL "
 $startArgs += "--databricksworkspaceid $env:AZURE_DATABRICKS_WORKSPACE_ID "
+$startArge += "--azureopenaiurl $env:AZURE_OPENAI_ENDPOINT "
+$startArge += "--azureopenaiapiversion $env:AZURE_OPENAI_API_VERSION "
 $startArgs += "-v"
 if ($env:SKIPBLOBS -eq "TRUE") {
   $startArgs += "--skipblobs"
