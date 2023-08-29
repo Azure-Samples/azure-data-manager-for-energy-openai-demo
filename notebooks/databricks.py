@@ -90,7 +90,10 @@ with BytesIO(zip_data) as zip_stream:
             # Wait for all tasks to complete
             concurrent.futures.wait(futures)
 
-# COMMAND ----------
+#Delete the zipfile
+blob_to_delete = "TNO.zip"
+source_blob_client = blob_service_client.get_blob_client(container=container_name, blob=blob_to_delete)
+source_blob_client.delete_blob()
 # Define functions
 
 # Split JSON into smaller chunks
