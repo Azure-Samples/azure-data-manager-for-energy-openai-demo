@@ -1,23 +1,18 @@
 import os
 import argparse
 import glob
-import html
-import io
 import re
-import time
 import base64
 from typing import Dict
-from pypdf import PdfReader, PdfWriter
 from azure.identity import AzureDeveloperCliCredential, AzureCliCredential
 from azure.core.credentials import AzureKeyCredential
 from azure.storage.blob import BlobServiceClient
 from azure.search.documents.indexes import SearchIndexClient
 from azure.search.documents.indexes.models import *
-from azure.search.documents import SearchClient
-from azure.ai.formrecognizer import DocumentAnalysisClient
 from databricks.sdk import WorkspaceClient
 from databricks.sdk.service import workspace
 from databricks.sdk.service.jobs import JobTaskSettings, NotebookTask, NotebookTaskSource
+
 
 
 # MAX_SECTION_LENGTH = 1000
@@ -100,145 +95,11 @@ def populate_index_with_databricks():
 
     print('Uploading jupyter notebook')
     notebook_path = '/create_cs_index'
-    content = f'''# Databricks notebook source
-# Install required modules
-%pip install azure-core==1.27.1
-%pip install azure-search-documents==11.4.0b3
-%pip install azure-storage-blob==12.14.1
-%pip install azure-identity==1.13.0b4
-
-# COMMAND ----------
-# Import required modules
-import os
-from typing import Dict
-import base64
-from azure.core.credentials import AzureKeyCredential
-from azure.search.documents import SearchClient
-from azure.search.documents.indexes.models import (
-    ComplexField,
-    CorsOptions,
-    SearchIndex,
-    ScoringProfile,
-    SearchFieldDataType,
-    SimpleField,
-    SearchableField
-)
-import json
-from azure.storage.blob import BlobServiceClient
-from multiprocessing import Pool
-from azure.identity import DefaultAzureCredential
-
-# COMMAND ----------
-# Define connection info
-
-# Get the service endpoint and API key from the environment
-endpoint = "https://{args.searchservice}.search.windows.net"
-index_name = "{args.index}"
-connection_string = "https://{args.storageaccount}.blob.core.windows.net"
-container_name = "{args.container}"
-
-default_creds = DefaultAzureCredential()
-
-# Create a service client
-search_client = SearchClient(endpoint, index_name, credential=default_creds)
-
-# Create a BlobServiceClient object using the connection string
-blob_service_client = BlobServiceClient(account_url=connection_string, credential=default_creds)
-
-# COMMAND ----------
-# Define functions
-
-# Split JSON into smaller chunks
-def split_json(data, chunk_size):
-    chunks = []
-    start_idx = 0
-    array_level = 0
-
-    while start_idx < len(data):
-        # Find the end index of the next JSON object
-        end_idx = start_idx + chunk_size
-        while end_idx < len(data):
-            if data[end_idx] == '[':
-                array_level += 1
-            elif data[end_idx] == ']':
-                array_level -= 1
-
-            if array_level == 0 and data[end_idx] == ',':
-                break
-
-            end_idx += 1
-
-        # Extract the JSON object and add it to the chunks
-        chunk = data[start_idx:end_idx]
-        chunks.append(chunk)
-
-        start_idx = end_idx + 1
-
-    return chunks
-
-def extract_id_and_content(blob_content):
-    data = json.loads(blob_content)
-    id = data.get("id")
-    content = json.dumps(data).replace('"', "'")
-    kind = data.get("kind")
-    return id, content, kind
-
-
-def extract_id(blob_content):
-    data = json.loads(blob_content)
-    id = data.get("id")
-    return id
-
-
-def encode_id(id_value):
-    return id_value.replace(":", "_")
-
-
-def process_blob(blob_name):
-    # Get the blob client for the current blob
-    blob_client = container_client.get_blob_client(blob_name)
-    # Download the blob's content
-    blob_content = blob_client.download_blob().readall()
-    blob_name = blob_client.blob_name
-    id, content, kind = extract_id_and_content(blob_content)
-    id_encoded = base64.urlsafe_b64encode(id.encode()).decode()
-    category_split = kind.split(':')
-    category_split2 = category_split[-2].split('--')
-    category = category_split2[-1]
-    #print('id: ' + id)
-    output_fields = []
-    result_split = split_json(json.dumps(json.loads(blob_content)), chunk_size)
-    for i, chunk in enumerate(result_split):
-        document = '''+'''{
-            "id": str(id),
-            "content": "ID " + str(id) + ", " + chunk,
-            "kind": kind,
-            "keyfield": encode_id(id_encoded)+"-"+str(i),
-            "sourcefile": blob_name,
-            "category": category,
-            "sourcepage": blob_name + "-" + str(i)
-        }
-        output_fields.append(document)
-    result = search_client.upload_documents(documents=output_fields)
-
-# COMMAND ----------
-# Execute populate index
-if __name__ == '__main__':
-    # Example usage
-    chunk_size = 800
-   
-    # Get a reference to the container
-    container_client = blob_service_client.get_container_client(container_name)
-
-    # List all blobs (documents) in the container
-    blob_list = container_client.list_blobs()
-    counter = 0
-
-    with Pool() as pool:
-        pool.map(process_blob, [blob.name for blob in blob_list])
-
-    exit()
-    '''
+    
+    
+    databricks_script = open(f"./notebooks/databricks.py", "r")
+    content = databricks_script.read()
+    databricks_script.close()
 
     w.workspace.import_(path=notebook_path,
                         overwrite=True,
@@ -250,7 +111,10 @@ if __name__ == '__main__':
     task_key = "run_job"
 
     print("Attempting to create the job. Please wait...\n")
-    base_parameters = { "": "" }
+    base_parameters = { "endpoint": f"https://{args.searchservice}.search.windows.net", 
+                        "index_name": f"{args.index}",
+                        "connection_string": f"https://{args.storageaccount}.blob.core.windows.net",
+                        "container_name": f"{args.container}" }
     j=w.jobs.create(
         job_name = job_name,
         tasks = [
