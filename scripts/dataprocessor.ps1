@@ -88,6 +88,7 @@ if ($env:SKIPINDEX -eq "TRUE") {
   $startArgs += "--skipindex"
 }
 
-Start-Process -FilePath $venvPythonPath -ArgumentList ./scripts/dataprocessor.py $startArgs -Wait -NoNewWindow
+$scriptPath = "./scripts/dataprocessor.py"
+Start-Process -FilePath $venvPythonPath -ArgumentList $scriptPath, $startArgs -Wait -NoNewWindow
 azd env set SKIPBLOBS "TRUE"
 azd env set SKIPINDEX "TRUE"
