@@ -57,6 +57,7 @@ You can run this repo virtually by using GitHub Codespaces or VS Code Remote Con
 Execute the following command, if you don't have any pre-existing Azure services and want to start from a fresh deployment.
 
 1. Run `az login --scope https://graph.microsoft.com//.default` - This is used to perform the Databricks role assignments during deployment (in the absence of Bicep support (https://github.com/Azure/bicep/issues/11035)).
+1. Check that you are logged in to the right subscription by running the command: `az account show --query "{SubscriptionName:name, SubscriptionId:id}"`. If you need to change to the right subscription then run `az account set --subscription <correct_subscription_id>`
 1. Run `azd up` - This will provision Azure resources and deploy this sample to those resources, including building the search index based on the files found in the `./data` folder.
 1. After the application has been successfully deployed you will see a URL printed to the console.  Click that URL to interact with the application in your browser.  
 
