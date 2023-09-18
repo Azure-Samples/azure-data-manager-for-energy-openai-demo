@@ -75,7 +75,7 @@ zip_data = downloaded_blob.content_as_bytes()
 # Function to extract data
 def extract_and_upload(file_info):
     extracted_data = zip_ref.read(file_info.filename)
-    destination_blob_name = file_info.filename
+    destination_blob_name = os.path.basename(file_info.filename)
     destination_blob_client = blob_service_client.get_blob_client(container=container_name, blob=destination_blob_name)
     destination_blob_client.upload_blob(extracted_data, overwrite=True)
 
