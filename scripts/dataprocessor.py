@@ -246,4 +246,4 @@ else:
         populate_index_with_databricks()
     else:
         print('SKIPINDEX = TRUE | Skipping indexing')
-    
+print('It can take a few minutes for background indexing to finish even after the app is up and running. If your app cannot find any data when you ask questions, please wait a few minutes.')    
