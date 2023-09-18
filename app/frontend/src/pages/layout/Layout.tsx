@@ -20,11 +20,6 @@ const Layout = () => {
                                 </NavLink>
                             </li>
                             <li className={styles.headerNavLeftMargin}>
-                                <NavLink to="/qa" className={({ isActive }) => (isActive ? styles.headerNavPageLinkActive : styles.headerNavPageLink)}>
-                                    Ask a question
-                                </NavLink>
-                            </li>
-                            <li className={styles.headerNavLeftMargin}>
                                 <a href="https://github.com/Azure-Samples/azure-data-manager-for-energy-openai-demo" target={"_blank"} title="Github repository link">
                                     <img
                                         src={github}
